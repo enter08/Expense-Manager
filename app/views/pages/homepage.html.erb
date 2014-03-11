@@ -1,3 +1,16 @@
  <title>Expense manager</title>
 
+<ul>
+<% if user_signed_in? %>
+  <li>
+  <%= link_to('Logout', destroy_user_session_path,method: :delete) %>        
+  </li>
+<% else %>
+  <li>
+  <%= link_to('Login', new_user_session_path)  %>  
+  </li>
+<% end %>
+</ul>
+
+
  <p data-role='description'>This is an Expense manager application</p>
