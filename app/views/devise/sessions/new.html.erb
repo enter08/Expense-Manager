@@ -1,3 +1,11 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Expense manager</title>
+</head>
+<body>
+
 <h2>Sign in</h2>
 
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
@@ -15,3 +23,7 @@
 <% end %>
 
 <%= render "devise/shared/links" %>
+
+<p data-role='description'>This is an Expense manager application</p>
+</body>
+</html>
