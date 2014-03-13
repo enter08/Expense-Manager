@@ -1,7 +1,10 @@
 class ExpensesController < ApplicationController
 
 	def index
-		@expenses = Expense.all
+		#@current_user = User.find(params[:id])
+		#@expenses = Expense.find_all_by_user_id(params[:id])
+		#@expenses = @exps.all
+		@expenses = current_user.expenses
 	end
 
 	def new
@@ -9,14 +12,17 @@ class ExpensesController < ApplicationController
 	end
 
 	def create
-		@expense = Expense.new(expense_params)
+		# @expense = Expense.new(expense_params)
+		# @expense.user = current_user
+		@expense = current_user.expenses.build(expense_params)
 		@expense.save
 		redirect_to expenses_path
 	end
 
 	def destroy
-		expense = Expense.find(params[:id])
-		expense.destroy
+		#expense = Expense.find(params[:id])
+		@expense = current_user.expenses.find(params[:id])
+		@expense.destroy
    	  	redirect_to expenses_path
 	end
 
@@ -25,13 +31,16 @@ class ExpensesController < ApplicationController
 	end
 
 	def update
-		@expense = Expense.find(params[:id])
+		# @expense = Expense.find(params[:id])
+		# @expense.update(expense_params)
+		@expense = current_user.expenses.find(params[:id])
 		@expense.update(expense_params)
 		redirect_to expenses_path
 	end
 
 	def show
-		@expense = Expense.find(params[:id])
+		@expense = current_user.expenses.find(params[:id])
+		#@expense = Expense.find(params[:id])
 	end
 
 	private

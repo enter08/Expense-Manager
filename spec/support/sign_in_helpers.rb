@@ -6,6 +6,11 @@ module SignInHelpers
 		click_button 'Sign in'
 	end
 
+	def sign_in_userless
+		@user = FactoryGirl.create(:user)
+		sign_in(@user)
+	end
+
 	def sign_up
 		visit new_user_registration_path
 		fill_in 'Email', with: "person@example.com"
@@ -18,7 +23,7 @@ module SignInHelpers
 		visit root_path
 		@user = FactoryGirl.create(:user)
 		sign_in(@user)
-		@expenses = FactoryGirl.create_list(:expense, 10)
+		@expenses = FactoryGirl.create_list(:expense, 10, user: @user)
 		visit expenses_path
 	end
 
