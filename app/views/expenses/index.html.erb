@@ -1,0 +1,11 @@
+<h1> Expenses </h1>
+
+<ul>
+	<% @expenses.each do |expense| %>
+		<li class="expense_d"><%= expense.description %></li>
+		<li class="expense_v"><%= expense.expense_value %></li>
+		<%= link_to('Details', expense_path(expense), :method => :get) %><br/>
+		<%= link_to('Edit this expense', edit_expense_path(expense), :method => :get) %><br/>
+		<%= link_to('Delete this expense', expense_path(expense), :method => :delete, data: {confirm: 'Are you sure?'}) %><br/><br/>
+	<% end %>
+</ul>

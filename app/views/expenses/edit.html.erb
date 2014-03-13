@@ -1,0 +1,11 @@
+<h1> Update your expense </h1>
+
+<%= form_for(@expense) do |f| %>
+	  <%= f.label :description, "Description" %>
+      <%= f.text_field :description %><br/> <br/>
+
+      <%= f.label :expense_value, "Amount" %>
+      <%= f.text_field :expense_value %><br/><br/>
+
+      <%= f.submit "Save changes", :method => :patch %>
+<% end %>

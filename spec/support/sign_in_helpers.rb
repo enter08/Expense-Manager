@@ -14,6 +14,23 @@ module SignInHelpers
 		click_button 'Sign up'
 	end
 
+	def expenses_list
+		visit root_path
+		@user = FactoryGirl.create(:user)
+		sign_in(@user)
+		@expenses = FactoryGirl.create_list(:expense, 10)
+		visit expenses_path
+	end
+
+	def add_single_expense
+		visit root_path
+		@user = FactoryGirl.create(:user)
+		sign_in(@user)
+		click_link('Add a new expense')
+		fill_in "Description", with: "Bought a new bike"
+		fill_in "Amount", with: "195.5"
+		click_button('Add to my expenses')
+	end
 end
 
 RSpec.configure do |config|

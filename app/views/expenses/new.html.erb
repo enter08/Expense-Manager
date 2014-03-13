@@ -1,0 +1,7 @@
+<%= form_for @expense do |f| %>
+  <%= f.label :description, "Description" %>
+  <%= f.text_field :description %><br/>
+  <%= f.label :expense_value, "Amount" %>
+  <%= f.text_field :expense_value %><br/>
+  <%= f.submit "Add to my expenses" %>
+<% end %>

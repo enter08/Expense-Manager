@@ -6,8 +6,6 @@
 </head>
 <body>
 
-<h1>Expense manager</h1>
-
 <ul>
 <% if user_signed_in? %>
   <li>
@@ -20,8 +18,12 @@
 <% end %>
 </ul>
 
+<h1>Expense manager</h1>
 
- <p data-role='description'>This is an Expense manager application</p>
+ <p data-role='description'>This is an Expense manager application</p><br/>
+
+<%= link_to('Add a new expense', new_expense_path) %><br/>
+<%= link_to('View all expenses', expenses_path) %>
 
 </body>
 </html>
