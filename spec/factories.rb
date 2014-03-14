@@ -5,13 +5,13 @@ FactoryGirl.define do
   end
 
   factory :category do
-  	sequence(:name) { |n| "test_category#{n}" }
+  	sequence(:name) {|n| "Other#{n}" }
   end
 
   factory :expense do
   	sequence(:description) { |n| "Bought a new bike#{n}" }
   	sequence(:expense_value) { |n| "#{200 + n}" }
   	user
-  	# category
+  	category
   end
 end

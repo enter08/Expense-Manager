@@ -9,18 +9,18 @@ feature 'Manage expenses' do
 
 	scenario 'list all expenses' do
 		expenses_list
-		expect(page).to have_css("li", count: 20)
+		expect(page).to have_css("li", count: 33)
 	end
 
 	scenario 'delete an expense' do
 		expenses_list
 		page.all('a', :text => 'Delete this expense')[1].click
-		expect(page).to have_css("li", count:18)
+		expect(page).to have_css("li", count:30)
 	end
 
 	scenario 'find edit page' do
 		expenses_list
-		expect(page).to have_css("a", count: 30)
+		expect(page).to have_css("a", count: 33)
 		page.all('a', text: 'Edit this expense')[1].click
 		expect(page).to have_content("Update your expense")
 	end
@@ -41,5 +41,23 @@ feature 'Manage expenses' do
 		click_link('Details')
 		expect(page).to have_content("Details")
 		expect(page).to have_content("You've spent 195.5€.")
+	end
+
+	scenario 'list all expenses by category' do
+		expenses_list
+		expect(page).to have_content 'Filter by category:'
+	end
+
+	scenario 'filter expenses by category' do
+		visit root_path
+		@category1 = FactoryGirl.create(:category)
+		@category2 = FactoryGirl.create(:category)
+		@user = FactoryGirl.create(:user)
+		FactoryGirl.create_list(:expense, 3, user: @user, category: @category1)
+		FactoryGirl.create_list(:expense, 5, user: @user, category: @category2)
+		sign_in(@user)
+		click_link('View all expenses')
+		click_link(@category2.name)
+		expect(page).to have_css(".expense_c", count:5)
 	end
 end

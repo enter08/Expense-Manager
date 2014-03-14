@@ -1,11 +1,25 @@
 <h1> Expenses </h1>
 
+Find expense:
+<%= form_tag expenses_path, method: 'get' do %>
+  <p>
+	<%= text_field_tag :search, params[:search] %>
+	<%= submit_tag "Search", name: nil %>
+  </p>
+<% end %>
+
+Filter by category:
+<% @categories.each do |c| %>
+ <li><%= link_to c.name, expenses_path(category: c.id) %></li>
+<% end %>
+
 <ul>
 	<% @expenses.each do |expense| %>
 		<li class="expense_d"><%= expense.description %></li>
 		<li class="expense_v"><%= expense.expense_value %></li>
-		<%= link_to('Details', expense_path(expense), :method => :get) %><br/>
-		<%= link_to('Edit this expense', edit_expense_path(expense), :method => :get) %><br/>
-		<%= link_to('Delete this expense', expense_path(expense), :method => :delete, data: {confirm: 'Are you sure?'}) %><br/><br/>
+		<li class="expense_c"><%= expense.category.name %></li>
+		<%= link_to('Details', expense_path(expense)) %><br/>
+		<%= link_to('Edit this expense', edit_expense_path(expense)) %><br/>
+		<%= link_to('Delete this expense', expense_path(expense), method: :delete, data: {confirm: 'Are you sure?'}) %><br/><br/>
 	<% end %>
 </ul>

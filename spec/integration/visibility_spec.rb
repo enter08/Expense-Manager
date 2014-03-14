@@ -11,7 +11,7 @@ feature 'Expenses can be accessed only by current user' do
 		fill_in 'Password confirmation', with: "password"
 		click_button 'Sign up'
 		click_link('View all expenses')
-		expect(page).not_to have_css("li", count: 2)
+		expect(page).not_to have_css("li", count: 3)
 	end
 
 	scenario "other users can't destroy my expenses" do

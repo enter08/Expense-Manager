@@ -7,5 +7,7 @@
       <%= f.label :expense_value, "Amount" %>
       <%= f.text_field :expense_value %><br/><br/>
 
+      <%= f.collection_select(:category_id, Category.all, :id, :name ) %><br/><br/>
+
       <%= f.submit "Save changes", :method => :patch %>
 <% end %>

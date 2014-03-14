@@ -3,5 +3,7 @@
   <%= f.text_field :description %><br/>
   <%= f.label :expense_value, "Amount" %>
   <%= f.text_field :expense_value %><br/>
+  <%= f.label :category_id, "Category" %>
+  <%= f.collection_select(:category_id, Category.all, :id, :name) %>
   <%= f.submit "Add to my expenses" %>
 <% end %>

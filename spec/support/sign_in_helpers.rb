@@ -21,14 +21,20 @@ module SignInHelpers
 
 	def expenses_list
 		visit root_path
+		@category1 = FactoryGirl.create(:category)
+		@category2 = FactoryGirl.create(:category)
+		@category3 = FactoryGirl.create(:category)
 		@user = FactoryGirl.create(:user)
 		sign_in(@user)
-		@expenses = FactoryGirl.create_list(:expense, 10, user: @user)
+		@expenses = FactoryGirl.create_list(:expense, 3, user: @user, category: @category1)
+		@expenses = FactoryGirl.create_list(:expense, 2, user: @user, category: @category2)
+		@expenses = FactoryGirl.create_list(:expense, 5, user: @user, category: @category3)
 		visit expenses_path
 	end
 
 	def add_single_expense
 		visit root_path
+		@category = FactoryGirl.create_list(:category, 10)
 		@user = FactoryGirl.create(:user)
 		sign_in(@user)
 		click_link('Add a new expense')
