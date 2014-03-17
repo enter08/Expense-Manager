@@ -32,8 +32,11 @@ class ExpensesController < ApplicationController
 		# @expense = Expense.new(expense_params)
 		# @expense.user = current_user
 		@expense = current_user.expenses.build(expense_params)
-		@expense.save
-		redirect_to expenses_path
+		if @expense.save
+			redirect_to expenses_path
+		else
+			render 'new'
+		end
 	end
 
 	def destroy
@@ -63,6 +66,6 @@ class ExpensesController < ApplicationController
 	private
 	
 	def expense_params
-		params.require(:expense).permit(:description, :expense_value, :category_id)
+		params.require(:expense).permit(:description, :expense_value, :category_id, :bill)
 	end
 end

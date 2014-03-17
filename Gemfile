@@ -13,6 +13,7 @@ end
 gem 'pg'
 gem 'high_voltage'
 gem 'devise'
+gem "paperclip", "~> 4.1"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.3'

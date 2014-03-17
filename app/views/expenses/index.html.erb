@@ -18,6 +18,7 @@ Filter by category:
 		<li class="expense_d"><%= expense.description %></li>
 		<li class="expense_v"><%= expense.expense_value %></li>
 		<li class="expense_c"><%= expense.category.name %></li>
+		<%= image_tag expense.bill.url(:medium) %><br/>
 		<%= link_to('Details', expense_path(expense)) %><br/>
 		<%= link_to('Edit this expense', edit_expense_path(expense)) %><br/>
 		<%= link_to('Delete this expense', expense_path(expense), method: :delete, data: {confirm: 'Are you sure?'}) %><br/><br/>
