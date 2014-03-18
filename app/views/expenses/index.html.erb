@@ -13,11 +13,28 @@ Filter by category:
  <li><%= link_to c.name, expenses_path(category: c.id) %></li>
 <% end %>
 
+<%= form_tag expenses_path, method: 'get' do %>
+
+ <div class="row">
+  <div class='col-sm-1'>
+  <div class='input-group date' id='datetimepicker5' data-date-format="YYYY-MM-DD">
+  <div class="date" data-behaviour="datepicker1">
+  <%= label_tag :date1, "Search by month:" %>
+  <%= text_field_tag :date1, @date2 %><p class="input-group-addon"></p>
+
+  </div>
+  </div>
+  </div>
+  </div>
+
+<% end %>
+
 <ul>
 	<% @expenses.each do |expense| %>
 		<li class="expense_d"><%= expense.description %></li>
 		<li class="expense_v"><%= expense.expense_value %></li>
 		<li class="expense_c"><%= expense.category.name %></li>
+		<li class="expense_dt"><%= expense.date %></li>
 		<%= image_tag expense.bill.url(:medium) %><br/>
 		<%= link_to('Details', expense_path(expense)) %><br/>
 		<%= link_to('Edit this expense', edit_expense_path(expense)) %><br/>

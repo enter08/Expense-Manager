@@ -10,6 +10,16 @@ group :test do
   gem 'database_cleaner', github: 'bmabey/database_cleaner'
 end
 
+# group :plugins do
+# 	gem 'calendar_date_select'
+# end
+
+#gem 'sass-rails', '>= 3.2' # sass-rails needs to be higher than 3.2
+gem 'bootstrap-sass', '~> 3.1.1'
+gem 'bootstrap-datepicker-rails'
+
+#gem 'calendar_date_select', :git => 'git://github.com/paneq/calendar_date_select.git'
+
 gem 'pg'
 gem 'high_voltage'
 gem 'devise'
@@ -17,6 +27,8 @@ gem "paperclip", "~> 4.1"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.3'
+
+gem 'validates_timeliness', '~> 3.0'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'

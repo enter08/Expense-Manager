@@ -6,7 +6,7 @@ class ExpensesController < ApplicationController
 		#@expenses = @exps.all
 		@expenses = current_user.expenses
 		@categories = Category.all
-		
+
 		if params[:category] && params[:search]
 			@expenses = current_user.expenses(conditions: ['description LIKE ?', "%#{params[:search]}%"])
 			@expenses.select!{ |c| c.category_id == params[:category] }
@@ -17,12 +17,25 @@ class ExpensesController < ApplicationController
 		else
 			@expenses = Expense.all
 		end
+
+		if params[:month]
+			@expenses = current_user.expenses.where(date: params[:month])
+		else
+			@expenses = Expense.all
+		end
 	# 	if params[:search]
 	# 		@expenses = Expense.all(conditions: ['description LIKE ?', "%#{params[:search]}%"])
 	# 	else
 	# 		@expenses = Expense.all
 	# 	end
+		@date1 = Date.today 
+		@date2 = @date1.strftime("%B")
 	end
+
+	# def mdate
+ #      month = params[:month_select]
+ #      redirect_to :action => "index"
+	# end
 
 	def new
 		@expense = Expense.new
@@ -66,6 +79,6 @@ class ExpensesController < ApplicationController
 	private
 	
 	def expense_params
-		params.require(:expense).permit(:description, :expense_value, :category_id, :bill)
+		params.require(:expense).permit(:description, :date, :expense_value, :category_id, :bill)
 	end
 end

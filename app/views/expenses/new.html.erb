@@ -2,20 +2,11 @@
    <div id="error_explanation">
    <h2><%= pluralize(@expense.errors.count, "error") %></h2>
 <ul>
-<% @expense.errors.full_messages.each do |msg| %><br/>
-    <li><%= msg %></li><br/>
+<% @expense.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
 <% end %><br/>
 </ul>
 </div>
 <% end %>
 
-<%= form_for @expense do |f| %>
-  <%= f.label :description, "Description" %>
-  <%= f.text_field :description %><br/>
-  <%= f.label :expense_value, "Amount" %>
-  <%= f.text_field :expense_value %><br/>
-  <%= f.label :category_id, "Category" %>
-  <%= f.collection_select(:category_id, Category.all, :id, :name) %><br/>
-  <%= f.file_field :bill %><br/>
-  <%= f.submit "Add to my expenses" %>
-<% end %>
+<%= render 'form' %>

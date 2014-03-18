@@ -5,25 +5,10 @@
 <title>Expense manager</title>
 </head>
 <body>
-
-<ul>
-<% if user_signed_in? %>
-  <li>
-  <%= link_to('Logout', destroy_user_session_path, method: :delete) %>        
-  </li>
-<% else %>
-  <li>
-  <%= link_to('Login', new_user_session_path)  %>  
-  </li>
-<% end %>
-</ul>
-
-<h1>Expense manager</h1>
-
- <p data-role='description'>This is an Expense manager application</p><br/>
-
-<%= link_to('Add a new expense', new_expense_path) %><br/>
-<%= link_to('View all expenses', expenses_path) %>
-
+<div class="jumbotron">
+	<h1>Expense manager</h1>
+	<p data-role='description'>This is an Expense manager application</p><br/>
+	
+</div>
 </body>
 </html>
