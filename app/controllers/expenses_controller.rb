@@ -5,7 +5,10 @@ class ExpensesController < ApplicationController
 		#@expenses = Expense.find_all_by_user_id(params[:id])
 		#@expenses = @exps.all
 		@expenses = current_user.expenses
+
 		@categories = Category.all
+
+#		@categories = Category.find(:all).sort{|x,y| counts(x.id) <=> counts(y.id)}
 
 		if params[:category] && params[:search]
 			@expenses = current_user.expenses(conditions: ['description LIKE ?', "%#{params[:search]}%"])
@@ -14,12 +17,6 @@ class ExpensesController < ApplicationController
 			@expenses = current_user.expenses.where(category_id: params[:category])
 		elsif params[:search]
 			@expenses = Expense.all(conditions: ['description LIKE ?', "%#{params[:search]}%"])
-		else
-			@expenses = Expense.all
-		end
-
-		if params[:month]
-			@expenses = current_user.expenses.where(date: params[:month])
 		else
 			@expenses = Expense.all
 		end

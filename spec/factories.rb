@@ -9,8 +9,9 @@ FactoryGirl.define do
   end
 
   factory :expense do
-  	sequence(:description) { |n| "Bought a new bike#{n}" }
-  	sequence(:expense_value) { |n| "#{200 + n}" }
+  	sequence(:description) { |n| "Bought something#{n}" }
+  	sequence(:expense_value) { |n| "#{200 + rand(324)}" }
+    date { Date.today }
   	user
   	category
   end
