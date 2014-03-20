@@ -31,6 +31,7 @@
 				<ul class="dropdown-menu">
 					<% if user_signed_in? %>
 					<li><a data-method="delete" href="/users/sign_out">Sign out</a></li>
+					<li><a href="/users/edit">Profile</a></li>
 					<% end %>
 					<% if !user_signed_in? %>
 					<li><a href="/users/sign_in/">Sign in</a></li>
