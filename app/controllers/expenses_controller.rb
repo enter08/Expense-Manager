@@ -1,11 +1,9 @@
+require 'will_paginate/array' 
+
 class ExpensesController < ApplicationController
 
 	def index
-		#@current_user = User.find(params[:id])
-		#@expenses = Expense.find_all_by_user_id(params[:id])
-		#@expenses = @exps.all
-		@expenses = current_user.expenses
-
+		
 		@categories = Category.all
 
 #		@categories = Category.find(:all).sort{|x,y| counts(x.id) <=> counts(y.id)}
@@ -18,8 +16,10 @@ class ExpensesController < ApplicationController
 		elsif params[:search]
 			@expenses = Expense.all(conditions: ['description LIKE ?', "%#{params[:search]}%"])
 		else
-			@expenses = Expense.all
+			@expenses = current_user.expenses
 		end
+
+		@expenses = @expenses.page(params[:page]).per_page(8)
 	# 	if params[:search]
 	# 		@expenses = Expense.all(conditions: ['description LIKE ?', "%#{params[:search]}%"])
 	# 	else
