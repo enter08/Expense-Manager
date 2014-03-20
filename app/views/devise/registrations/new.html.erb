@@ -1,21 +1,45 @@
- <h2>Sign Up</h2>
-          
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Expense manager</title>
+	</head>
+	<body>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4">
+				</div>
+				<div class="col-md-5">
+				    <div class="row"><br/>
+					    <div class="thumbnail">
+							<div class="panel panel-default">
+								<div align="right" class="panel-heading">Expense Manager
+								</div>
+						  		<div class="panel-body">
+							  		<legend>Sign up</legend> 
+							          
+									<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+							  		<%= devise_error_messages! %>
 
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email, :autofocus => true %></div>
+									<div><%= f.label :email %><br />
+										 <%= f.email_field :email, :autofocus => true, class: "form-control", placeholder: "E-mail address" %>
+									</div><br/>
 
-  <div><%= f.label :password %><br />
-  <%= f.password_field :password %></div>
+									<div><%= f.label :password %><br />
+										 <%= f.password_field :password, class: "form-control", placeholder: "Password" %></div><br/>
 
-  <div><%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %></div>
-
-  <%= f.submit "Sign up", class: "btn btn-large btn-primary" %>
-<% end %>
-</div>
-</div>
-
-</body>
+									<div><%= f.label :password_confirmation %><br />
+										 <%= f.password_field :password_confirmation, class: "form-control", placeholder: "Password" %><br/>
+									</div>
+									<button type="submit" class="btn btn-primary">Sign up</button>
+									<% end %>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
 </html>

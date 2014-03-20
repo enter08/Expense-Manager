@@ -1,16 +1,45 @@
-<h2>Change your password</h2>
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Expense manager</title>
+	</head>
+	<body>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4">
+				</div>
+				<div class="col-md-5">
+				    <div class="row"><br/>
+					    <div class="thumbnail">
+							<div class="panel panel-default">
+								<div align="right" class="panel-heading">Expense Manager
+								</div>
+						  		<div class="panel-body">
+							  		<legend>Chage your password</legend> 
+							          
+									<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f| %>
+								    <%= devise_error_messages! %>
+								    <%= f.hidden_field :reset_password_token %>
 
-<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f| %>
-  <%= devise_error_messages! %>
-  <%= f.hidden_field :reset_password_token %>
+									<div><%= f.label :password, "New password" %><br />
+										 <%= f.email_field :password, :autofocus => true, class: "form-control", placeholder: "New password" %>
+									</div><br/>
 
-  <div><%= f.label :password, "New password" %><br />
-  <%= f.password_field :password, :autofocus => true %></div>
-
-  <div><%= f.label :password_confirmation, "Confirm new password" %><br />
-  <%= f.password_field :password_confirmation %></div>
-
-  <div><%= f.submit "Change my password" %></div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+										<div><%= f.label :password_confirmation, "Confirm new password" %><br />
+										 <%= f.email_field :password_confirmation, :autofocus => true, class: "form-control", placeholder: "New password" %>
+									</div><br/>
+									
+									<button type="submit" class="btn btn-primary">Change my password</button>
+									<% end %>
+									<%= render "devise/shared/links" %>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

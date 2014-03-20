@@ -14,12 +14,12 @@ class ExpensesController < ApplicationController
 		elsif params[:category]
 			@expenses = current_user.expenses.where(category_id: params[:category])
 		elsif params[:search]
-			@expenses = Expense.all(conditions: ['description LIKE ?', "%#{params[:search]}%"])
+			@expenses = current_user.expenses.where(['description LIKE ?', "%#{params[:search]}%"])
 		else
 			@expenses = current_user.expenses
 		end
+			@expenses = @expenses.page(params[:page]).per_page(8)
 
-		@expenses = @expenses.page(params[:page]).per_page(8)
 	# 	if params[:search]
 	# 		@expenses = Expense.all(conditions: ['description LIKE ?', "%#{params[:search]}%"])
 	# 	else
@@ -36,6 +36,19 @@ class ExpensesController < ApplicationController
 
 	def new
 		@expense = Expense.new
+
+		@categories = Category.all
+
+		if params[:category] && params[:search]
+			@expenses = current_user.expenses(conditions: ['description LIKE ?', "%#{params[:search]}%"])
+			@expenses.select!{ |c| c.category_id == params[:category] }
+		elsif params[:category]
+			@expenses = current_user.expenses.where(category_id: params[:category])
+		elsif params[:search]
+			@expenses = Expense.all(conditions: ['description LIKE ?', "%#{params[:search]}%"])
+		else
+			@expenses = current_user.expenses
+		end
 	end
 
 	def create
@@ -57,7 +70,21 @@ class ExpensesController < ApplicationController
 	end
 
 	def edit
+
 		@expense = Expense.find(params[:id])
+
+		@categories = Category.all
+
+		if params[:category] && params[:search]
+			@expenses = current_user.expenses(conditions: ['description LIKE ?', "%#{params[:search]}%"])
+			@expenses.select!{ |c| c.category_id == params[:category] }
+		elsif params[:category]
+			@expenses = current_user.expenses.where(category_id: params[:category])
+		elsif params[:search]
+			@expenses = Expense.all(conditions: ['description LIKE ?', "%#{params[:search]}%"])
+		else
+			@expenses = current_user.expenses
+		end
 	end
 
 	def update
@@ -71,6 +98,22 @@ class ExpensesController < ApplicationController
 	def show
 		@expense = current_user.expenses.find(params[:id])
 		#@expense = Expense.find(params[:id])
+
+		@categories = Category.all
+
+		if params[:category] && params[:search]
+			@expenses = current_user.expenses(conditions: ['description LIKE ?', "%#{params[:search]}%"])
+			@expenses.select!{ |c| c.category_id == params[:category] }
+		elsif params[:category]
+			@expenses = current_user.expenses.where(category_id: params[:category])
+		elsif params[:search]
+			@expenses = Expense.all(conditions: ['description LIKE ?', "%#{params[:search]}%"])
+		else
+			@expenses = current_user.expenses
+		end
+
+		@date1 = @expense.date
+		@date2 = @date1.strftime("%d. %B, %Y")
 	end
 
 	private

@@ -1,28 +1,19 @@
-<%= form_for @expense do |f| %>
-
-<div class="container">
-
-  <%= f.label :description, "Description" %><br/>
-  <%= f.text_field :description %><br/>
-  <%= f.label :expense_value, "Amount" %><br/>
-  <%= f.text_field :expense_value %><br/>
-  
-  <div class="row">
-  <div class='col-sm-1'>
-  <div class='input-group date' id='datetimepicker5' data-date-format="YYYY-MM-DD">
-  <div class="date" data-behaviour="datepicker">
-  <%= f.label :date, "Date" %>
-  <%= f.text_field :date, value: Date.today %><p class="input-group-addon"></p>
-
+<%= form_for @expense, {role: "form"} do |f| %>
+  <br/>
+  <legend>New expense</legend>          
+  <div class="form-group">
+    <%= f.label :description, "Description" %>
+    <%= f.text_field :description, class: "form-control", placeholder: "Description" %>
+    <%= f.label :expense_value, "Amount" %>
+    <%= f.text_field :expense_value, class: "form-control", placeholder: "How much?"  %>
+    <div class="date" data-behaviour="datepicker">
+      <%= f.label :date, "Date" %>
+      <%= f.text_field :date, value: Date.today, class: "form-control"%><p class="input-group-addon"></p>
+    </div>
+    <%= f.label :category_id, "Category" %>
+    <%= f.collection_select(:category_id, Category.all, :id, :name,  {prompt: "Select a category"}, {class: "form-control"}) %>
+    <%= f.label :bill_id, "Upload photo" %><br/>
+    <%= f.file_field :bill, {class: "form-control"}%>
   </div>
-  </div>
-  </div>
-  </div>
-  <%= f.label :category_id, "Category" %>
-  <%= f.collection_select(:category_id, Category.all, :id, :name) %><br/>
-  <%= f.file_field :bill %><br/>
-  <%= f.submit "Add to my expenses" %>
-  </div>
-<% end %>
-
-
+  <center><button type="submit" class="btn btn-primary">Add expense</button></center>
+<% end %><br/>

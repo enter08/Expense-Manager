@@ -1,12 +1,26 @@
-<h1> Details </h1>
-<p style="font-size:40px"><%= @expense.category.name %></p>
-<p style="font-size:35px">You've spent <%= @expense.expense_value %>€.</p>
-<p style="font-size:20px">Description: <%= @expense.description %></p>
-<p style="font-size:20px">Date: <%= @expense.date %></p>
-<br/>
-<%= image_tag @expense.bill.url(:medium) %><br/>
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Expense manager</title>
+	</head>
+	<body>
 
-
-<br/>
-<%= link_to('Edit this expense', edit_expense_path(@expense), :method => :get) %><br/>
-<%= link_to('Delete this expense', expense_path(@expense), :method => :delete, data: {confirm: 'Are you sure?'}) %><br/>
+	<div class="container">
+		<div class="row">
+		<%= render 'categories_list' %>
+		<div class="col-md-2">
+		</div>
+		<div class="col-md-5">
+	    	<div class="row">
+	            <br/><div class="thumbnail">
+					<%= render 'details' %>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-2">
+		</div>
+		</div>
+	</div>
+	</body>
+</html>

@@ -1,13 +1,37 @@
-<h1> Update your expense </h1>
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Expense manager</title>
+	</head>
+	<body>
 
-<%= form_for(@expense) do |f| %>
-	  <%= f.label :description, "Description" %>
-      <%= f.text_field :description %><br/> <br/>
-
-      <%= f.label :expense_value, "Amount" %>
-      <%= f.text_field :expense_value %><br/><br/>
-
-      <%= f.collection_select(:category_id, Category.all, :id, :name ) %><br/><br/>
-
-      <%= f.submit "Save changes", :method => :patch %>
-<% end %>
+	<% if @expense.errors.any? %>
+		<div id="error_explanation">
+		<h2><%= pluralize(@expense.errors.count, "error") %></h2>
+		<ul>
+			<% @expense.errors.full_messages.each do |msg| %>
+			    <li><%= msg %></li>
+			<% end %><br/>
+		</ul>
+		</div>
+	<% end %>
+	<div class="container">
+		<div class="row">
+			<%= render 'categories_list' %>
+		<div class="col-md-2">
+		</div>
+		<div class="col-md-5">
+	    	<div class="row">
+	    	<br/>
+	            <div class="thumbnail">
+					<%= render 'update_form' %>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-2">
+		</div>
+		</div>
+	</div>
+	</body>
+</html>

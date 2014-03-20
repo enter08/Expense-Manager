@@ -1,36 +1,38 @@
-<% if @expense.errors.any? %>
-   <div id="error_explanation">
-   <h2><%= pluralize(@expense.errors.count, "error") %></h2>
-<ul>
-<% @expense.errors.full_messages.each do |msg| %>
-    <li><%= msg %></li>
-<% end %><br/>
-</ul>
-</div>
-<% end %>
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Expense manager</title>
+	</head>
+	<body>
 
-<form action="/expense" method="POST" role="form">
-	<legend>Form title</legend>
-
-	<div class="form-group">
-		<label for="">label</label>
-		<input type="text" class="form-control" id="" placeholder="Input field">
+	<% if @expense.errors.any? %>
+		<div id="error_explanation">
+		<h2><%= pluralize(@expense.errors.count, "error") %></h2>
+		<ul>
+			<% @expense.errors.full_messages.each do |msg| %>
+			    <li><%= msg %></li>
+			<% end %><br/>
+		</ul>
+		</div>
+	<% end %>
+	<div class="container">
+		<div class="row">
+			<%= render 'categories_list' %>
+		<div class="col-md-2">
+		</div>
+		<div class="col-md-5">
+	    	<div class="row">
+	    	<br/>
+	            <div class="thumbnail">
+					<%= render 'form' %>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-2">
+		</div>
+		</div>
 	</div>
 
-	<button type="submit" class="btn btn-primary">Submit</button>
-</form>
-
-<form action="" method="POST" class="form-inline" role="form">
-
-	<div class="form-group">
-		<label class="sr-only" for="">label</label>
-		<input type="email" class="form-control" id="" placeholder="Input field">
-	</div>
-
-	
-
-	<button type="submit" class="btn btn-primary">Submit</button>
-</form>
-
-<%= render 'form' %>
-
+	</body>
+</html>

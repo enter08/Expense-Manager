@@ -1,0 +1,22 @@
+<ul class="nav nav-tabs">
+  <li class="active"> <%= link_to "Show", expense_path(@expense) %></li>
+  <li ><%= link_to "Edit", edit_expense_path(@expense) %></li>
+  <li><%= link_to "Delete", expense_path(@expense), method: "delete", data: {confirm: 'Are you sure?'} %></li>
+<div class="panel panel-default">
+  <div align="right" class="panel-heading">Expense Manager</div>
+  <div class="panel-body">
+    <div class="well" align="center" style="font-size:35px"><span class="glyphicon glyphicon-tags"></span>&nbsp;&nbsp;<%= @expense.category.name %></div>
+    <div class="panel panel-default">
+  <div class="panel-body">
+<div align="center" style="font-size:35px"><strong><%= @expense.expense_value %> €</strong></div>
+<br/>
+<div class="thumbnail">
+<center><%= image_tag @expense.bill.url(:medium) %></div><br/><br/></center>
+<div style="font-size:15px"><strong>You've spent <%= @expense.expense_value %>€ when you <%= @expense.description %>.</strong></div></div></div>
+
+<div align="right" style="font-size:13px"><%= @date2 %></div>
+
+  </div>
+</div>
+</div>
+</ul>
