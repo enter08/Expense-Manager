@@ -21,26 +21,36 @@ module SignInHelpers
 
 	def expenses_list
 		visit root_path
-		@category1 = FactoryGirl.create(:category)
-		@category2 = FactoryGirl.create(:category)
-		@category3 = FactoryGirl.create(:category)
+		new_categories
 		@user = FactoryGirl.create(:user)
 		sign_in(@user)
-		@expenses = FactoryGirl.create_list(:expense, 3, user: @user, category: @category1)
+		@expenses = FactoryGirl.create_list(:expense, 1, user: @user, category: @category1)
 		@expenses = FactoryGirl.create_list(:expense, 2, user: @user, category: @category2)
-		@expenses = FactoryGirl.create_list(:expense, 5, user: @user, category: @category3)
+		@expenses = FactoryGirl.create_list(:expense, 3, user: @user, category: @category3)
+		@expenses = FactoryGirl.create_list(:expense, 4, user: @user, category: @category4)
+		@expenses = FactoryGirl.create_list(:expense, 5, user: @user, category: @category5)
 		visit expenses_path
 	end
 
 	def add_single_expense
 		visit root_path
-		@category = FactoryGirl.create_list(:category, 10)
+		new_categories
 		@user = FactoryGirl.create(:user)
 		sign_in(@user)
-		click_link('Add a new expense')
+		click_link('New expense')
 		fill_in "Description", with: "Bought a new bike"
 		fill_in "Amount", with: "195.5"
-		click_button('Add to my expenses')
+		fill_in "Date", with: "2014-06-05"
+		select "Entertainment", from: "Category"
+		click_button('Add expense')
+	end
+
+	def new_categories
+		@category1 = Category.create!(name: "Car")
+		@category2 = Category.create!(name: "Food & Drink")
+		@category3 = Category.create!(name: "Family & Personal")
+		@category4 = Category.create!(name: "Bills")
+		@category5 = Category.create!(name: "Entertainment")
 	end
 end
 

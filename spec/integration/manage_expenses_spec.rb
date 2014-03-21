@@ -3,61 +3,96 @@ require 'spec_helper'
 feature 'Manage expenses' do
 	scenario 'create a new expense' do
 		add_single_expense
-		expect(page).to have_css 'li.expense_d', text: "Bought a new bike"
-		expect(page).to have_css 'li.expense_v', text: "195.5"
+		expect(page).not_to have_css 'h4.expense_d', text: "Bought a new bike"
+		expect(page).to have_css 'h4.ex_v', text: "195.5"
+		expect(page).to have_css 'h3.ex_c', text: "Entertainment"
+		expect(page).to have_content "05. June, 2014."
 	end
 
-	scenario 'list all expenses' do
+	scenario 'list all expenses on first page' do
 		expenses_list
-		expect(page).to have_css("li", count: 33)
+		expect(page).to have_css("div.thumbnail", count: 8)
+	end
+
+	scenario 'pagination test for expenses on second page' do
+		expenses_list
+		click_link('2')
+		expect(page).to have_css("div.thumbnail", count: 7)
 	end
 
 	scenario 'delete an expense' do
 		expenses_list
-		page.all('a', :text => 'Delete this expense')[1].click
-		expect(page).to have_css("li", count:30)
+		page.all('a', :text => 'Delete')[1].click
+		click_link('2')
+		expect(page).to have_css("div.thumbnail", count: 6)
 	end
 
 	scenario 'find edit page' do
 		expenses_list
-		expect(page).to have_css("a", count: 33)
-		page.all('a', text: 'Edit this expense')[1].click
-		expect(page).to have_content("Update your expense")
+		expect(page).to have_css("div.thumbnail", count: 8)
+		page.all('a', text: 'Edit')[1].click
+		expect(page).to have_content("Edit expense")
 	end
 
 	scenario 'update expense' do
 		add_single_expense
-		click_link('Edit this expense')
-		expect(page).to have_content("Update your expense")
-		fill_in "Description", with: "Bought a car"
+		click_link('Edit')
+		expect(page).to have_content("Edit expense")
+		fill_in "Description", with: "Bought a new car"
 		fill_in "Amount", with: "15000"
+		fill_in "Date", with: "2014-06-12"
+		select "Car", from: "Category"
 		click_button('Save changes')
-		expect(page).to have_css 'li.expense_d', text: "Bought a car"
-		expect(page).to have_css 'li.expense_v', text: "15000"
+		expect(page).to have_css 'h4.ex_v', text: "15000"
+		expect(page).to have_css 'h3.ex_c', text: "Car"
+		expect(page).to have_content "12. June, 2014."
 	end
 
 	scenario 'see expense details' do
 		add_single_expense
-		click_link('Details')
-		expect(page).to have_content("Details")
-		expect(page).to have_content("You've spent 195.5€.")
+		click_link('Show')
+		expect(page).to have_css 'div.well', text: "Entertainment"
+		expect(page).to have_content("195.5 €")
+		expect(page).to have_css 'div.note', text: "You've spent 195.5€ when you bought a new bike."
 	end
 
 	scenario 'list all expenses by category' do
 		expenses_list
-		expect(page).to have_content 'Filter by category:'
+		expect(page).to have_css 'a.list-group-item.active', text:'All Expenses'
+		click_link('All Expenses')
+		expect(page).to have_css("div.thumbnail", count: 8)
+		click_link('2')
+		expect(page).to have_css("div.thumbnail", count: 7)
+	end
+
+	scenario 'sidebar and badges test' do
+		expenses_list
+		expect(page).to have_css('a.list-group-item.active', count: 1)
+		expect(page).to have_css('a.list-group-item', count: 6)
+		expect(page).to have_css('span.badge', count: 5)
+		expect(page).to have_css 'span.badge', text: "3"
+		expect(page).to have_css 'span.badge', text: "4"
+		expect(page).to have_css 'span.badge', text: "5"
 	end
 
 	scenario 'filter expenses by category' do
-		visit root_path
-		@category1 = FactoryGirl.create(:category)
-		@category2 = FactoryGirl.create(:category)
-		@user = FactoryGirl.create(:user)
-		FactoryGirl.create_list(:expense, 3, user: @user, category: @category1)
-		FactoryGirl.create_list(:expense, 5, user: @user, category: @category2)
-		sign_in(@user)
-		click_link('View all expenses')
-		click_link(@category2.name)
-		expect(page).to have_css(".expense_c", count:5)
+		expenses_list
+		click_link(@category4.name)
+		expect(page).to have_css("div.thumbnail", count: 4)
+	end
+
+	scenario 'search expenses via input form' do
+		add_single_expense
+		click_link('New expense')
+		fill_in "Description", with: "Bought a new car"
+		fill_in "Amount", with: "15000"
+		fill_in "Date", with: "2014-06-05"
+		select "Car", from: "Category"
+		click_button('Add expense')
+		fill_in "Search", with: "bike"
+		click_button("Search")
+		expect(page).to have_css("div.thumbnail", count: 1)
+		expect(page).to have_css 'h4.ex_v', text: "195.5"
+		expect(page).not_to have_css 'h4.ex_v', text: "15000"
 	end
 end

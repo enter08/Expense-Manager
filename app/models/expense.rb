@@ -9,4 +9,5 @@ class Expense < ActiveRecord::Base
   	validates :expense_value, :presence => { :message => "Expense value is required!" }
   	validates_length_of :description, :maximum => 40, :allow_blank => true, :message => "Description's too long! (max 40 chars)"
   	validates_date :date
+
 end 

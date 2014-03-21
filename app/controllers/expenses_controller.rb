@@ -2,11 +2,18 @@ require 'will_paginate/array'
 
 class ExpensesController < ApplicationController
 
-	def index
-		
-		@categories = Category.all
+	def counts(category_id)
+		@expenses1 = current_user.expenses
+		@categories1 = Category.all
+		@categories1.each do |sorted_categories|
+			@sorted_categories = @expenses1.where(category_id: category_id).count
+		end
+		return @sorted_categories
+	end
 
-#		@categories = Category.find(:all).sort{|x,y| counts(x.id) <=> counts(y.id)}
+	def index
+
+		@categories = Category.all.sort{|x,y| counts(y.id) <=> counts(x.id)}
 
 		if params[:category] && params[:search]
 			@expenses = current_user.expenses(conditions: ['description LIKE ?', "%#{params[:search]}%"])
@@ -20,24 +27,20 @@ class ExpensesController < ApplicationController
 		end
 			@expenses = @expenses.page(params[:page]).per_page(8)
 
-	# 	if params[:search]
-	# 		@expenses = Expense.all(conditions: ['description LIKE ?', "%#{params[:search]}%"])
-	# 	else
-	# 		@expenses = Expense.all
-	# 	end
-		@date1 = Date.today 
-		@date2 = @date1.strftime("%B")
+	#	@date1 = Date.today 
+	#	@date2 = @date1.strftime("%B")
 	end
 
+	# (for later use)
 	# def mdate
- #      month = params[:month_select]
- #      redirect_to :action => "index"
+ 	#   month = params[:month_select]
+ 	#   redirect_to :action => "index"
 	# end
 
 	def new
 		@expense = Expense.new
 
-		@categories = Category.all
+		@categories = Category.all.sort{|x,y| counts(y.id) <=> counts(x.id)}
 
 		if params[:category] && params[:search]
 			@expenses = current_user.expenses(conditions: ['description LIKE ?', "%#{params[:search]}%"])
@@ -52,8 +55,6 @@ class ExpensesController < ApplicationController
 	end
 
 	def create
-		# @expense = Expense.new(expense_params)
-		# @expense.user = current_user
 		@expense = current_user.expenses.build(expense_params)
 		if @expense.save
 			redirect_to expenses_path
@@ -63,7 +64,6 @@ class ExpensesController < ApplicationController
 	end
 
 	def destroy
-		#expense = Expense.find(params[:id])
 		@expense = current_user.expenses.find(params[:id])
 		@expense.destroy
    	  	redirect_to expenses_path
@@ -73,7 +73,7 @@ class ExpensesController < ApplicationController
 
 		@expense = Expense.find(params[:id])
 
-		@categories = Category.all
+		@categories = Category.all.sort{|x,y| counts(y.id) <=> counts(x.id)}
 
 		if params[:category] && params[:search]
 			@expenses = current_user.expenses(conditions: ['description LIKE ?', "%#{params[:search]}%"])
@@ -88,8 +88,6 @@ class ExpensesController < ApplicationController
 	end
 
 	def update
-		# @expense = Expense.find(params[:id])
-		# @expense.update(expense_params)
 		@expense = current_user.expenses.find(params[:id])
 		@expense.update(expense_params)
 		redirect_to expenses_path
@@ -97,9 +95,8 @@ class ExpensesController < ApplicationController
 
 	def show
 		@expense = current_user.expenses.find(params[:id])
-		#@expense = Expense.find(params[:id])
 
-		@categories = Category.all
+		@categories = Category.all.sort{|x,y| counts(y.id) <=> counts(x.id)}
 
 		if params[:category] && params[:search]
 			@expenses = current_user.expenses(conditions: ['description LIKE ?', "%#{params[:search]}%"])

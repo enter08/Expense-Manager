@@ -19,7 +19,7 @@
 	
 		<%= form_tag expenses_path, method: 'get', class: "navbar-form navbar-left", role: "search" do  %>
 		<div class="form-group">
-			<%= text_field_tag :search, params[:search], { class: "form-control", placeholder: "Find your expense" } %>
+			<%= text_field_tag :search, params[:search], { class: "form-control", placeholder: "Find your expense", id: "Search" } %>
 		</div>
 			<%= submit_tag "Search", { class: "btn btn-default", name: nil }%>
 		<% end %>	

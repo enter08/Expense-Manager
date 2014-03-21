@@ -11,12 +11,12 @@
             <div class="col-md-3">
               <div class="thumbnail">
                 <div class="caption">
-                  <h3><%= expense.category.name %></h3>
-                  <%= expense.date.strftime("%d. %B,  %Y") %>
+                  <h3 class="ex_c"><%= expense.category.name %></h3>
+                  <%= expense.date.strftime("%d. %B,  %Y.") %>
                 </div>
                 <%= image_tag expense.bill.url(:medium), size: '170x105' %>
                 <div class="caption">
-                  <p><center><h4><%= expense.expense_value %>€.</h4></center></p>
+                  <p><center><h4 class="ex_v"><%= expense.expense_value %>€</h4></center></p>
                   <p align="center">
                     <%= link_to expense_path(expense), class: "btn btn-primary", role: "button" do %>
                         <span style="font-size:10px;">Show</span>
