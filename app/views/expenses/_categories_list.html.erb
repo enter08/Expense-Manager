@@ -4,8 +4,14 @@
       All Expenses 
     </a>
     <% @categories.each do |c| %>
-      <%= link_to expenses_path(category: c.id), class: "list-group-item" do %>
-        <%= c.name %> <span class="badge"><%= counts(c.id) %></span>
+      <% if current_page? expenses_path(category: c.id) %>
+        <%= link_to expenses_path(category: c.id), class: "list-group-item active" do %>
+          <%= c.name %> <span class="badge"><%= counts(c.id) %></span>
+        <% end %>
+      <% else %>
+        <%= link_to expenses_path(category: c.id), class: "list-group-item" do %>
+          <%= c.name %> <span class="badge"><%= counts(c.id) %></span>
+        <% end %>
       <% end %>
     <% end %>
   </div>
