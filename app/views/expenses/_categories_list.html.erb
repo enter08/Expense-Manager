@@ -1,11 +1,11 @@
 <div class="col-md-3">
   <div class="list-group">
     <a href="/expenses" class="list-group-item active">
-      All Expenses 
+      All Expenses
     </a>
     <% @categories.each do |c| %>
-      <% if current_page? expenses_path(category: c.id) %>
-        <%= link_to expenses_path(category: c.id), class: "list-group-item active" do %>
+      <% if current_page? expenses_path(category: c.id, page: params[:page]) || %>
+        <%= link_to expenses_path(category: c.id), class: "list-group-item active1" do %>
           <%= c.name %> <span class="badge"><%= counts(c.id) %></span>
         <% end %>
       <% else %>

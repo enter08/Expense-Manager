@@ -46,3 +46,9 @@ html,body{
   padding-right: 20px;
 }
 }
+
+a.list-group-item.active1, a.list-group-item.active1:hover, a.list-group-item.active1:focus {
+    z-index: 2;
+    color: white;
+    background-color: #819FF7;
+    border-color: #819FF7; }
