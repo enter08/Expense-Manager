@@ -54,7 +54,5 @@ feature 'Manage expenses' do
 		expect(page).to have_css 'div.well', text: "Entertainment"
 		expect(page).to have_content("195.5 €")
 		expect(page).to have_css 'div.note', text: "You've spent 195.5€ when you bought a new bike."
-	end
-
-	
+	end	
 end

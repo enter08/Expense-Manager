@@ -1,4 +1,4 @@
-module SignInHelpers
+module ExpensesHelpers
 	def expenses_list
 		visit root_path
 		new_categories
