@@ -13,7 +13,7 @@ class ExpensesController < ApplicationController
 
 	def index
 
-		@categories = Category.all.sort{|x,y| counts(y.id) <=> counts(x.id)}
+		@categories = Category.where('active = true').sort{|x,y| counts(y.id) <=> counts(x.id)}
 
 		if params[:category] && params[:search]
 			@expenses = current_user.expenses(conditions: ['description LIKE ?', "%#{params[:search]}%"])

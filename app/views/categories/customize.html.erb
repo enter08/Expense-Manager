@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Expense manager</title>
+  </head>
+  <body>
+  <div class="col-md-5 center-block">
+    <div class="panel panel-default">
+      <div class="panel-heading">Categories list management</div>
+      <div class="panel-body">
+        <p>Click on the listed buttons to add or remove a category from the categories list. Default categories can't be removed from the list.</p>
+      </div> 
+        <table class="table">
+          <tr>
+            <th></th><th>Category</th>
+          </tr> 
+          <% @categories.each do |c| %>
+            <%= form_for c do |f| %>
+              <tr>
+                <% if c.default == true %>
+                  <td><center><button class="btn btn-default">Default</button></center></td>
+                <% elsif c.active == true && c.default == false %>
+                    <td ><center><button type="submit" method = "patch" class="btn btn-primary">Remove</button></center></td>
+                <% else %>
+                    <td ><center><button type="submit" method = "patch" class="btn btn-primary">Add</button></center></td>
+                <% end %>
+                <td><%= c.name %></td>
+              </tr>
+            <% end %>
+          <% end %>
+        </table> 
+    </div>
+    </div>
+  </body>
+</html>

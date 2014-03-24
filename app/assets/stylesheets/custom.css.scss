@@ -52,3 +52,10 @@ a.list-group-item.active1, a.list-group-item.active1:hover, a.list-group-item.ac
     color: white;
     background-color: #819FF7;
     border-color: #819FF7; }
+
+.center-block {
+    float: none;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

@@ -6,6 +6,8 @@ FactoryGirl.define do
 
   factory :category do
   	sequence(:name) {|n| "Other#{n}" }
+    active true
+    default true
   end
 
   factory :expense do
