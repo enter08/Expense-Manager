@@ -25,7 +25,7 @@ class ExpensesController < ApplicationController
 		else
 			@expenses = current_user.expenses
 		end
-			@expenses = @expenses.page(params[:page]).per_page(8)
+			@expenses = @expenses.order('date DESC').page(params[:page]).per_page(8)
 
 	#	@date1 = Date.today 
 	#	@date2 = @date1.strftime("%B")
@@ -111,6 +111,14 @@ class ExpensesController < ApplicationController
 
 		@date1 = @expense.date
 		@date2 = @date1.strftime("%d. %B, %Y")
+	end
+
+	def statistics
+		@expenses = current_user.expenses	
+		@date1 = Date.today 
+		@date2 = @date1.strftime("%B")
+		@total = @expenses.where("date > ?", Date.today.at_beginning_of_month).sum(:expense_value)
+		@max = @expenses.where("date > ?", Date.today.at_beginning_of_month).maximum(:expense_value)
 	end
 
 	private

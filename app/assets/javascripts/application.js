@@ -14,6 +14,8 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require bootstrap-datepicker
+//= require raphael
+//= require morris
 //= require_tree .
 
 var todaysDate = new Date();

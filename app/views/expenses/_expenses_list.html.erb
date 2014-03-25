@@ -4,6 +4,7 @@
     <%= render 'categories_list' %>
 
       <div class="col-md-9">
+        <center><%= content_tag :div, "", id: "expenses-chart", data: {expenses: expenses_chart_data} %></center>
         <% @expenses.each_with_index do |expense, index| %>
           <% if index % 4 == 0 %>
             <div class="row">

@@ -11,4 +11,9 @@ class Expense < ActiveRecord::Base
   	validates_length_of :description, :maximum => 40, :allow_blank => true, :message => "Description's too long! (max 40 chars)"
   	validates_date :date
 
+  	def self.total_grouped_by_day(start)
+  		expenses = where(date: start..Time.zone.now)
+  		expenses = expenses.select("date, sum(expense_value) as total_expense").group("date(date)")
+  		expenses.group_by { |o| o.date.to_date }
+  	end
 end 
