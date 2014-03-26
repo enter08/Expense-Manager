@@ -13,9 +13,70 @@
         <div class="panel panel-info">
             <div class="panel-heading"><strong>Statistics</strong></div>
               <div class="panel-body">
-              <center><%= content_tag :div, "", id: "expenses-chart2", data: {expenses: expenses_chart_data} %><br/>
-                   <span class="label label-info" style="font-size: 12px">Month</span> <strong><%= @date2 %></strong>&nbsp;&nbsp;&nbsp; <span class="label label-info" style="font-size: 12px">Total expenses</span> <strong><%= @total %></strong>&nbsp;&nbsp;&nbsp; <span class="label label-info" style="font-size: 12px">Max. expense</span>: <strong><%= @max %></strong><br/><br/>
-                   </center>
+              <center>
+                <%= content_tag :div, "", id: "expenses-chart2", data: {expenses: expenses_chart_data} %>
+                <br/>
+                <span class="label label-info" style="font-size: 12px">Month</span>&nbsp;&nbsp; <strong>
+                  <%= @date2 %>
+                </strong>&nbsp;&nbsp;&nbsp; 
+                <span class="label label-info" style="font-size: 12px">Total expenses</span>&nbsp;&nbsp;  
+                <strong>
+                  <%= @total %>
+                </strong>&nbsp;&nbsp;&nbsp; 
+                <span class="label label-info" style="font-size: 12px">
+                  Max. expense
+                </span>&nbsp;&nbsp;   
+                <strong>
+                  <%= @max %>
+                </strong>
+                <br/>
+              </center>
+              <br/>
+                <div class="panel panel-danger">
+                  <div class="panel-heading">Your top 3 EM categories</div>
+                  <div class="panel-body">
+                    <p>In this month, you've spent most of your money on:</p>
+                  </div>
+                  <table class="table" align="center">
+                    <% @categories[0..2].each do |c| %>
+                    <tr>
+                      <td>
+                        <%= c.name %>
+                      </td> 
+                      <td>
+                        <strong><%= count_exps(c.id) %></strong>
+                      </td>
+                    </tr>
+                    <% end %>
+                  </table>
+                  <center><%= content_tag :div, "", id: "categs_chart", data: {eexpenses: expenses_by_category_chart} %><br/>
+                <span class="label label-info" style="font-size: 12px">Average daily expense</span>&nbsp;&nbsp; <strong>
+                  <%= @avg_exp %>
+                </strong>&nbsp;&nbsp;&nbsp;</center><br/>
+                </div>
+                <div class="panel panel-success">
+                <div class="panel-heading">Last 7 days</div>
+                <div class="panel-body">
+                <p>In this seven days, you've spent most of your money on:</p>
+                <table class="table" align="center">
+                  <% @week_list[0..2].each do |c| %>
+                  <tr>
+                    <td>
+                      <%= c.name %>
+                    </td> 
+                    <td>
+                      <strong><%= count_exps(c.id) %></strong>
+                    </td>
+                  </tr>
+                  <% end %>
+                </table>
+                <center><%= content_tag :div, "", id: "expenses-chart-week", data: {expensesw: expenses_chart_data_week} %><br/>
+                <span class="label label-info" style="font-size: 12px">Average daily expense</span>&nbsp;&nbsp; <strong>
+                  <%= @avg_exp_week %>
+                </strong>&nbsp;&nbsp;&nbsp;</center><br/>
+                </div>
+                </div>
+                </div>
               </div>
             </div>
           </div>

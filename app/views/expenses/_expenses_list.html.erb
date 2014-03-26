@@ -17,7 +17,13 @@
                 </div>
                 <%= image_tag expense.bill.url(:medium), size: '170x105' %>
                 <div class="caption">
-                  <p><center><h4 class="ex_v"><%= expense.expense_value %>€</h4></center></p>
+                  <p><center><h4 class="ex_v"><%= expense.expense_value %>€ &nbsp;&nbsp;&nbsp;&nbsp;
+                  <% if expense.outcome == true %>
+                  <span style="color:red" class="glyphicon glyphicon-arrow-down"></span>
+                  <% else %>
+                  <span style="color:green" class="glyphicon glyphicon-arrow-up"></span>
+                  <% end %>
+                  </h4></center></p>
                   <p align="center">
                     <%= link_to expense_path(expense), class: "btn btn-primary", role: "button" do %>
                         <span style="font-size:10px;">Show</span>

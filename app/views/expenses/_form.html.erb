@@ -2,6 +2,10 @@
   <br/>
   <legend>New expense</legend>    
   <div class="form-group">
+    <%= f.label :outcome, "Outcome" %>
+    <%= f.radio_button :outcome, true, checked: true %>&nbsp;&nbsp;&nbsp;
+    <%= f.label :outcome, "Income" %>
+    <%= f.radio_button :outcome, false %><br/><br/>
     <%= f.label :description, "Description" %>
     <%= f.text_field :description, class: "form-control", placeholder: "Description" %>
     <%= f.label :expense_value, "Amount" %>
@@ -11,7 +15,7 @@
       <%= f.text_field :date, value: Date.today, class: "form-control"%><p class="input-group-addon"></p>
     </div>
     <%= f.label :category_id, "Category" %>
-    <%= f.collection_select(:category_id, Category.all, :id, :name,  {prompt: "Select a category"}, {class: "form-control"}) %>
+    <%= f.collection_select(:category_id, Category.where(active: true), :id, :name,  {prompt: "Select a category"}, {class: "form-control"}) %>
     <%= f.label :bill_id, "Upload photo" %><br/>
     <%= f.file_field :bill, {class: "form-control"}%>
   </div>

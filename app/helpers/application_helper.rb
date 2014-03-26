@@ -7,4 +7,13 @@ module ApplicationHelper
 		end
 		return @n
 	end
+
+	def count_exps(category_id)
+		@expenses2 = current_user.expenses.where("date > ?", Date.today.at_beginning_of_month)
+		@categories2 = Category.all
+		@categories2.each do |sum_of_exps|
+			@sum_of_exps = @expenses2.where(category_id: category_id).sum(:expense_value)
+		end
+		return @sum_of_exps
+	end
 end

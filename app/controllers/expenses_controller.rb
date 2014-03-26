@@ -40,7 +40,7 @@ class ExpensesController < ApplicationController
 	def new
 		@expense = Expense.new
 
-		@categories = Category.all.sort{|x,y| counts(y.id) <=> counts(x.id)}
+		@categories = Category.where('active = true').sort{|x,y| counts(y.id) <=> counts(x.id)}
 
 		if params[:category] && params[:search]
 			@expenses = current_user.expenses(conditions: ['description LIKE ?', "%#{params[:search]}%"])
@@ -96,7 +96,7 @@ class ExpensesController < ApplicationController
 	def show
 		@expense = current_user.expenses.find(params[:id])
 
-		@categories = Category.all.sort{|x,y| counts(y.id) <=> counts(x.id)}
+		@categories = Category.where('active = true').sort{|x,y| counts(y.id) <=> counts(x.id)}
 
 		if params[:category] && params[:search]
 			@expenses = current_user.expenses(conditions: ['description LIKE ?', "%#{params[:search]}%"])
@@ -114,16 +114,39 @@ class ExpensesController < ApplicationController
 	end
 
 	def statistics
+		@categories = Category.all.where(active: true).sort{|x,y| count_exps_month(y.id) <=> count_exps_month(x.id)}
+		@week_list = Category.all.where(active: true).sort{|x,y| count_exps_week(y.id) <=> count_exps_week(x.id)}
+
 		@expenses = current_user.expenses	
 		@date1 = Date.today 
 		@date2 = @date1.strftime("%B")
 		@total = @expenses.where("date > ?", Date.today.at_beginning_of_month).sum(:expense_value)
+		@avg_exp = (@expenses.where("date > ?", Date.today.at_beginning_of_month).sum(:expense_value)/30).round(2)
+		@avg_exp_week = (@expenses.where("date > ?", (Date.today-6.days)).sum(:expense_value)/7).round(2)
 		@max = @expenses.where("date > ?", Date.today.at_beginning_of_month).maximum(:expense_value)
+	end
+
+	def count_exps_month(category_id)
+		@expenses2 = current_user.expenses.where("date > ?", Date.today.at_beginning_of_month)
+		@categories3 = Category.all.where(active: true)
+		@categories3.each do |sum_of_exps|
+			@sum_of_exps = @expenses2.where(category_id: category_id).sum(:expense_value)
+		end
+		return @sum_of_exps
+	end
+
+	def count_exps_week(category_id)
+		@expenses2 = current_user.expenses.where("date > ?", (Date.today-6.days))
+		@categories4 = Category.all.where(active: true)
+		@categories4.each do |sum_of_exps|
+			@sum_of_exps = @expenses2.where(category_id: category_id).sum(:expense_value)
+		end
+		return @sum_of_exps
 	end
 
 	private
 	
 	def expense_params
-		params.require(:expense).permit(:description, :date, :expense_value, :category_id, :bill)
+		params.require(:expense).permit(:description, :date, :outcome, :expense_value, :category_id, :bill)
 	end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140324121854) do
+ActiveRecord::Schema.define(version: 20140326140838) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 20140324121854) do
     t.integer  "bill_file_size"
     t.datetime "bill_updated_at"
     t.date     "date"
+    t.boolean  "outcome"
   end
 
   add_index "expenses", ["category_id"], name: "index_expenses_on_category_id", using: :btree
