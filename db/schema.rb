@@ -11,10 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140326140838) do
+ActiveRecord::Schema.define(version: 20140328095544) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "budget_items", force: true do |t|
+    t.integer "user_id"
+    t.integer "category_id"
+    t.date    "budget_date"
+    t.decimal "value"
+  end
+
+  add_index "budget_items", ["category_id"], name: "index_budget_items_on_category_id", using: :btree
+  add_index "budget_items", ["user_id"], name: "index_budget_items_on_user_id", using: :btree
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -22,6 +32,7 @@ ActiveRecord::Schema.define(version: 20140326140838) do
     t.datetime "updated_at"
     t.boolean  "active"
     t.boolean  "default"
+    t.boolean  "outcome"
   end
 
   create_table "expenses", force: true do |t|
@@ -37,10 +48,16 @@ ActiveRecord::Schema.define(version: 20140326140838) do
     t.datetime "bill_updated_at"
     t.date     "date"
     t.boolean  "outcome"
+    t.integer  "location_id"
   end
 
   add_index "expenses", ["category_id"], name: "index_expenses_on_category_id", using: :btree
+  add_index "expenses", ["location_id"], name: "index_expenses_on_location_id", using: :btree
   add_index "expenses", ["user_id"], name: "index_expenses_on_user_id", using: :btree
+
+  create_table "locations", force: true do |t|
+    t.string "name"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

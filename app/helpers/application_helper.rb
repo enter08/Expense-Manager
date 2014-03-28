@@ -16,4 +16,13 @@ module ApplicationHelper
 		end
 		return @sum_of_exps
 	end
+
+	def count_exps_week(category_id)
+		@expenses2 = current_user.expenses.where("date > ?", (Date.today-6.days))
+		@categories4 = Category.all.where(active: true)
+		@categories4.each do |sum_of_exps|
+			@sum_of_exps = @expenses2.where(category_id: category_id).sum(:expense_value)
+		end
+		return @sum_of_exps
+	end
 end

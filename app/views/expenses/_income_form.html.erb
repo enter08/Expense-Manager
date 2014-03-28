@@ -1,6 +1,7 @@
 <%= form_for @expense, {role: "form"} do |f| %>
+  <br/>   
   <div class="form-group">
-    <%= f.hidden_field :outcome, value: true %>
+    <%= f.hidden_field :outcome, value: false %>
     <%= f.label :description, "Description" %>
     <%= f.text_field :description, class: "form-control", placeholder: "Description" %>
     <%= f.label :expense_value, "Amount" %>
@@ -10,7 +11,7 @@
       <%= f.text_field :date, value: Date.today, class: "form-control"%><p class="input-group-addon"></p>
     </div>
     <%= f.label :category_id, "Category" %>
-    <%= f.collection_select(:category_id, Category.active_outcome, :id, :name,  {prompt: "Select a category"}, {class: "form-control"}) %>
+    <%= f.collection_select(:category_id, Category.active_income, :id, :name,  {prompt: "Select a category"}, {class: "form-control"}) %>
     <%= f.label :location, "Location" %>
     <%= f.collection_select(:location_id, Location.all, :id, :name, {prompt: "Select a location", selected: 17}, {class: "form-control"}) %>
     <%= f.label :bill_id, "Upload photo" %><br/>

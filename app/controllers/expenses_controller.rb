@@ -26,9 +26,6 @@ class ExpensesController < ApplicationController
 			@expenses = current_user.expenses
 		end
 			@expenses = @expenses.order('date DESC').page(params[:page]).per_page(8)
-
-	#	@date1 = Date.today 
-	#	@date2 = @date1.strftime("%B")
 	end
 
 	# (for later use)
@@ -38,6 +35,23 @@ class ExpensesController < ApplicationController
 	# end
 
 	def new
+		@expense = Expense.new
+
+		@categories = Category.where('active = true').sort{|x,y| counts(y.id) <=> counts(x.id)}
+
+		if params[:category] && params[:search]
+			@expenses = current_user.expenses(conditions: ['description LIKE ?', "%#{params[:search]}%"])
+			@expenses.select!{ |c| c.category_id == params[:category] }
+		elsif params[:category]
+			@expenses = current_user.expenses.where(category_id: params[:category])
+		elsif params[:search]
+			@expenses = Expense.all(conditions: ['description LIKE ?', "%#{params[:search]}%"])
+		else
+			@expenses = current_user.expenses
+		end
+	end
+
+	def new_income
 		@expense = Expense.new
 
 		@categories = Category.where('active = true').sort{|x,y| counts(y.id) <=> counts(x.id)}
@@ -147,6 +161,6 @@ class ExpensesController < ApplicationController
 	private
 	
 	def expense_params
-		params.require(:expense).permit(:description, :date, :outcome, :expense_value, :category_id, :bill)
+		params.require(:expense).permit(:description, :date, :outcome, :expense_value, :location_id, :category_id, :bill)
 	end
 end

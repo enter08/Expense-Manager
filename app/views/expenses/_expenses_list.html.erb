@@ -1,8 +1,6 @@
 <div class="container">
     <div class="row">
-
     <%= render 'categories_list' %>
-
       <div class="col-md-9">
         <center><%= content_tag :div, "", id: "expenses-chart", data: {expenses: expenses_chart_data} %></center>
         <% @expenses.each_with_index do |expense, index| %>
@@ -12,16 +10,27 @@
             <div class="col-md-3">
               <div class="thumbnail">
                 <div class="caption">
+                <% if expense.category.name == "Family & Personal" %>
+                  <h3 class="ex_c">Personal</h3>
+                <% else %>
                   <h3 class="ex_c"><%= expense.category.name %></h3>
+                <% end %>
                   <%= expense.date.strftime("%d. %B,  %Y.") %>
+                  <% if expense.location %>
+                    <% if expense.location.name == "Abroad" %>
+                      <br/><span style="font-size:12px;"><%= expense.location.name %></span>
+                    <% else %>
+                      <br/><span style="font-size:12px;">In: <%= expense.location.name %></span>
+                    <% end %>
+                  <% end %>
                 </div>
                 <%= image_tag expense.bill.url(:medium), size: '170x105' %>
                 <div class="caption">
-                  <p><center><h4 class="ex_v"><%= expense.expense_value %>€ &nbsp;&nbsp;&nbsp;&nbsp;
+                  <p><center><h4 class="ex_v">
                   <% if expense.outcome == true %>
-                  <span style="color:red" class="glyphicon glyphicon-arrow-down"></span>
+                  <span style="color:red" class="glyphicon glyphicon-download"></span>&nbsp;&nbsp;<%= -expense.expense_value.abs %>€ 
                   <% else %>
-                  <span style="color:green" class="glyphicon glyphicon-arrow-up"></span>
+                  <span style="color:green" class="glyphicon glyphicon-upload"></span>&nbsp;&nbsp;<%= expense.expense_value %>€ 
                   <% end %>
                   </h4></center></p>
                   <p align="center">

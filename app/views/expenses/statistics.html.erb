@@ -21,13 +21,13 @@
                 </strong>&nbsp;&nbsp;&nbsp; 
                 <span class="label label-info" style="font-size: 12px">Total expenses</span>&nbsp;&nbsp;  
                 <strong>
-                  <%= @total %>
+                  <%= number_with_precision(@total, :precision => 2, :delimiter => ',') %> €
                 </strong>&nbsp;&nbsp;&nbsp; 
                 <span class="label label-info" style="font-size: 12px">
                   Max. expense
                 </span>&nbsp;&nbsp;   
                 <strong>
-                  <%= @max %>
+                  <%= number_with_precision(@max, :precision => 2, :delimiter => ',') %> €
                 </strong>
                 <br/>
               </center>
@@ -44,14 +44,14 @@
                         <%= c.name %>
                       </td> 
                       <td>
-                        <strong><%= count_exps(c.id) %></strong>
+                        <strong><%= number_with_precision(count_exps(c.id), :precision => 2, :delimiter => ',') %> €</strong>
                       </td>
                     </tr>
                     <% end %>
                   </table>
                   <center><%= content_tag :div, "", id: "categs_chart", data: {eexpenses: expenses_by_category_chart} %><br/>
                 <span class="label label-info" style="font-size: 12px">Average daily expense</span>&nbsp;&nbsp; <strong>
-                  <%= @avg_exp %>
+                  <%= number_with_precision(@avg_exp, :precision => 2, :delimiter => ',') %> €
                 </strong>&nbsp;&nbsp;&nbsp;</center><br/>
                 </div>
                 <div class="panel panel-success">
@@ -65,14 +65,14 @@
                       <%= c.name %>
                     </td> 
                     <td>
-                      <strong><%= count_exps(c.id) %></strong>
+                      <strong><%= number_with_precision(count_exps_week(c.id), :precision => 2, :delimiter => ',') %> €</strong>
                     </td>
                   </tr>
                   <% end %>
                 </table>
                 <center><%= content_tag :div, "", id: "expenses-chart-week", data: {expensesw: expenses_chart_data_week} %><br/>
                 <span class="label label-info" style="font-size: 12px">Average daily expense</span>&nbsp;&nbsp; <strong>
-                  <%= @avg_exp_week %>
+                  <%= number_with_precision(@avg_exp_week, :precision => 2, :delimiter => ',') %> €
                 </strong>&nbsp;&nbsp;&nbsp;</center><br/>
                 </div>
                 </div>

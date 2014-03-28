@@ -5,7 +5,8 @@ $(function() {
 		  data: $('#expenses-chart').data('expenses'),
 		  xkey: 'date',
 		  ykeys: ['expense_value'],
-		  labels: ['Expense']
+		  labels: ['Expense'],
+		  postUnits: ' €'
 	  });
   }
 
@@ -16,7 +17,7 @@ $(function() {
 	  	xkey: 'date',
 	  	ykeys: ['expense_value'],
 	  	labels: ['Expense'],
-	  	postUnits: '€'
+	  	postUnits: ' €'
 	});
   }
 })

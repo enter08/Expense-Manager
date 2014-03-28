@@ -8,14 +8,27 @@ FactoryGirl.define do
   	sequence(:name) {|n| "Other#{n}" }
     active true
     default true
+    outcome true
   end
 
   factory :expense do
   	sequence(:description) { |n| "Bought something#{n}" }
-  	sequence(:expense_value) { |n| "#{1 + rand(324)}" }
+  	sequence(:expense_value) { |n| "#{1 + rand(44)}" }
     date { rand(30).days.ago }
     outcome true
   	user
   	category
+    location
+  end
+
+  factory :location do
+    sequence(:name) { |n| "Location#{n}" }
+  end
+
+  factory :budget_item do
+    sequence(:value) { |n| "#{1 + rand(65)}" }
+    date '2014-03-01'
+    user
+    category
   end
 end

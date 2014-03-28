@@ -25,5 +25,5 @@ $(document).on("focus", "[data-behaviour~='datepicker']", function(e){
 });
 
 $(document).on("focus", "[data-behaviour~='datepicker1']", function(e){
-    $(this).datepicker({"format": "mm", "minViewMode": 1, "startDate": Date.month, "autoclose": true})
+    $(this).datepicker({"format": "yyyy-mm-01", "minViewMode": 1, "startDate": Date.month, "autoclose": true})
 });

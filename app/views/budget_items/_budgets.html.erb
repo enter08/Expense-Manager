@@ -1,0 +1,75 @@
+<ul class="nav nav-tabs">
+	<li class="active"> <%= link_to "Show", budget_items_path %></li>
+	<li ><%= link_to "New", new_budget_item_path %></li>
+	<li><%= link_to "Delete" %></li>
+	<div class="panel panel-default">
+		<div align="right" class="panel-heading">Expense Manager</div>
+			<div class="panel-body">
+				<div class="well" align="center" style="font-size:35px"><span class="glyphicon glyphicon-tags"></span>&nbsp;&nbsp;Monthly Budget</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<strong>Budget for <%= @date2 %></strong>
+					</div>
+					<%= form_tag budget_items_update_budget_path, method: :get do %>
+						<table class="table">
+						<tr>
+							<th></th>
+							<th>Category</th>
+							<th>Budget</th>
+							<th></th>
+							<th></th>
+						</tr>
+						<% @budget_items.each do |budget| %>
+							<tr>
+								<td><%= check_box_tag "budget_ids[]", budget.id %> </td>
+								<td><%= budget.category.name %></td>
+								<td><%= number_with_precision(budget.value, :precision => 2, :delimiter => ',') %> €</td>
+								<td><%= link_to "Edit", edit_budget_item_path(budget), class: "btn btn-primary" %></td>
+								<td><%= link_to "Delete", budget_item_path(budget), class: "btn btn-default", method: :delete, data: {confirm: 'Are you sure?', role: "button"} %></td>
+							</tr>
+						<% end %>
+						<tr>
+							<th></th>
+							<th>Total</th>
+							<th><%= number_with_precision(@total, :precision => 2, :delimiter => ',') %> €</th>
+							<th></th>
+							<th></th>
+						</table>
+				</div>
+					<%= submit_tag "Edit checked", class: "btn btn-default" %><br/></br>
+					<% end %>
+						Click bellow on Show to see your budget for next month.<br/>
+						<a id="show_id" onclick="document.getElementById('spoiler_id').style.display=''; document.getElementById('show_id').style.display='none';" class="link">[Show]</a><span id="spoiler_id" style="display: none"><a onclick="document.getElementById('spoiler_id').style.display='none'; document.getElementById('show_id').style.display='';" class="link">[Hide]</a>
+						<div class="panel panel-default">
+							<div class="panel-heading">
+							<strong>Budget for <%= @date4 %></strong>
+							</div>
+
+							<table class="table">
+							<tr>
+								<th>Category</th>
+								<th>Budget</th>
+								<th></th>
+								<th></th>
+							</tr>
+							<% @budget_items_next.each do |budget| %>
+								<tr>
+									<td><%= budget.category.name %></td>
+									<td><%= number_with_precision(budget.value, :precision => 2, :delimiter => ',') %> €</td>
+									<td><%= link_to "Edit", edit_budget_item_path(budget), class: "btn btn-primary" %></td>
+									<td><%= link_to "Delete", budget_item_path(budget), class: "btn btn-default", method: :delete, data: {confirm: 'Are you sure?', role: "button"} %></td>
+								</tr>
+							<% end %>
+							<tr>
+								<th>Total</th>
+								<th><%= number_with_precision(@total_next, :precision => 2, :delimiter => ',') %> €</th>
+							</table>
+
+						</div>
+						</span>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</ul>

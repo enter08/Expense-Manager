@@ -1,0 +1,33 @@
+<ul class="nav nav-tabs">
+  <li class="active"> <%= link_to "Show", budget_items_path %></li>
+  <li ><%= link_to "Edit" %></li>
+  <li><%= link_to "Delete" %></li>
+  <div class="panel panel-default">
+    <div align="right" class="panel-heading">Monthly Budget</div>
+      <div class="panel-body">
+        <div class="well" align="center" style="font-size:35px"><span class="glyphicon glyphicon-tags"></span>&nbsp;&nbsp;Monthly Budget</div>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <strong>Category budget</strong>
+          </div>
+            
+              <table class="table">
+              <%= form_for @budget_item, {role: "form"} do |f| %> 
+                <legend>Edit budget item</legend>     
+                <div class="form-group">
+                  <%= f.label :value, "Category budget" %>
+                  <%= f.text_field :value, class: "form-control" %>
+                  <div class="date" data-behaviour="datepicker">
+                  <%= f.label :budget_date, "Date" %>
+                  <%= f.text_field :budget_date, value: Date.today.at_beginning_of_month, class: "form-control"%><p class="input-group-addon"></p>
+                  </div>
+                </div>
+                <button type="submit" method="patch" class="btn btn-primary">Save changes</button>
+              <% end %>
+              </table>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ul>
