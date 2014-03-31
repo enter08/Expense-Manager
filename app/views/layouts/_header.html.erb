@@ -23,23 +23,29 @@
 		</div>
 			<%= submit_tag "Search", { class: "btn btn-default", name: nil }%>
 		<% end %>	
-
 		<ul class="nav navbar-nav navbar-right">
-			<li><a href="#">Help</a></li>
+			<% if user_signed_in? %>
+				<li><a href="/expenses/statistics">Statistics</a></li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Download<b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><%= link_to "CSV", expenses_path(format: "csv") %></li>
+						<li><%= link_to "XLS", expenses_path(format: "xls") %></li>
+					</ul>
+				</li>
+			<% end %>
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">Settings<b class="caret"></b></a>
 				<ul class="dropdown-menu">
 					<% if user_signed_in? %>
-					<li><a href="/users/edit">Profile</a></li>
-					<li><a href="/categories/customize">Categories</a></li>
-					<li><a href="/budget_items/">Budget</a></li>
-					<li><a href="/expenses/statistics">Statistics</a></li>
-					<li><a data-method="delete" href="/users/sign_out">Sign out</a></li>
+						<li><a href="/budget_items/">Budget</a></li>
+						<li><a href="/categories/customize">Categories</a></li>
+						<li><a href="/users/edit">Profile</a></li>
+						<li><a data-method="delete" href="/users/sign_out">Sign out</a></li>
 					<% end %>
 					<% if !user_signed_in? %>
-					<li><a href="/users/sign_in/">Sign in</a></li>
-					<li><a href="/users/sign_up/">Register</a></li>
-
+						<li><a href="/users/sign_in/">Sign in</a></li>
+						<li><a href="/users/sign_up/">Register</a></li>
 					<% end %>
 				</ul>
 			</li>

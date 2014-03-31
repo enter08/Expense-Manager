@@ -13,7 +13,8 @@ Expman::Application.routes.draw do
   resources :locations
 
   match 'budget_items/create_budget', via: :post
-  match 'budget_items/update_budget', via: :patch
+  match 'budget_items/edit_budget', via: :get
+  match 'budget_items/update_budget', via: :put
   resources :budget_items
   
   #match 'locations', to: 'locations#index', via: :get

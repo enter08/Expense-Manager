@@ -1,0 +1,20 @@
+<table border="1">
+	<tr>
+		<th>ID</th>
+		<th>Expense Value</th>
+		<th>Category</th>
+		<th>Location</th>
+		<th>Outcome</th>
+		<th>Date</th>
+	</tr>
+	<% @expenses.each do |expense| %>
+		<tr>
+			<td><%= expense.id %></td>
+			<td><%= expense.expense_value %></td>
+			<td><%= expense.category.name %></td>
+			<td><%= expense.location.name %></td>
+			<td><%= expense.outcome %></td>
+			<td><%= expense.date %></td>
+		</tr>
+	<% end %>
+</table>

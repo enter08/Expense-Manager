@@ -11,5 +11,7 @@
  *= require_self
  *= require bootstrap-datepicker
  *= require morris
+ *= require select2
+ *= require select2-bootstrap
  *= require_tree .
  */

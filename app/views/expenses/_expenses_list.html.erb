@@ -1,8 +1,17 @@
 <div class="container">
     <div class="row">
-    <%= render 'categories_list' %>
+    <%= render 'categories_list_index' %>
       <div class="col-md-9">
-        <center><%= content_tag :div, "", id: "expenses-chart", data: {expenses: expenses_chart_data} %></center>
+        <center>
+          <span style="font-size: 11px", class="label label-primary">Budget: <%= number_with_precision(@budget, :precision => 2, :delimiter => ',') %></span> <span style="font-size: 11px", class="label label-primary">Expenses: <%= number_with_precision(@total, :precision => 2, :delimiter => ',') %></span> 
+          <% if @money_left > 0 %>
+            <span style="font-size: 11px", class="label label-warning">Money left: <%= number_with_precision(@money_left, :precision => 2, :delimiter => ',') %></span>
+          <% else %>
+            <span style="font-size: 11px", class="label label-danger">Deficit: <%= number_with_precision(@money_left, :precision => 2, :delimiter => ',') %></span>
+          <% end %>
+          <div class="row"><%= content_tag :div, "", id: "expenses-chart", data: {expenses: expenses_chart_data} %>
+        </div>
+        </center>
         <% @expenses.each_with_index do |expense, index| %>
           <% if index % 4 == 0 %>
             <div class="row">

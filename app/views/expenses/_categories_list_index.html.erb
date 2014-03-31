@@ -1,0 +1,26 @@
+<div class="col-md-3">
+  <div class="list-group">
+    <center> 
+        <span style="font-size: 11px", class="label label-success">Income: <%= number_with_precision(@income, :precision => 2, :delimiter => ',') %> € 
+        </span>&nbsp;
+        <span style="font-size: 11px", class="label label-danger">Outcome: <%= number_with_precision(-(@outcome).abs, :precision => 2, :delimiter => ',') %> € 
+        </span>
+      <br/>
+      <br/>
+    </center>
+    <a href="/expenses" class="list-group-item active">
+      All Expenses
+    </a>
+    <% @categories.each do |c| %>
+      <% if current_page? expenses_path(category: c.id, page: params[:page]) || %>
+        <%= link_to expenses_path(category: c.id), class: "list-group-item active1" do %>
+          <%= c.name %> <span class="badge"><%= counts(c.id) %></span>
+        <% end %>
+      <% else %>
+        <%= link_to expenses_path(category: c.id), class: "list-group-item" do %>
+          <%= c.name %> <span class="badge"><%= counts(c.id) %></span>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

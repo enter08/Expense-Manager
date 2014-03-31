@@ -32,6 +32,73 @@
                 <br/>
               </center>
               <br/>
+                <div class="panel panel-primary">
+                  <div class="panel-heading"><strong>Budget</strong></div>
+                    <table class="table" align="center">
+                    <tr>
+                      <td>
+                        <strong>Budget</strong>
+                      </td>
+                      <td>
+                        <%= number_with_precision(@budget, :precision => 2, :delimiter => ',') %>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <strong>Incomes & Outcomes</strong>
+                      </td>
+                      <td>
+                        <%= number_with_precision(@saldo, :precision => 2, :delimiter => ',') %>
+                      </td>
+                    </tr>
+                    <tr><td><center><%= content_tag :div, "", id: "income_chart" %><br/></center></td></tr>
+                    <tr>
+                      <td>
+                        Today's income
+                      </td>
+                      <td>
+                        <%= number_with_precision(@income_today, :precision => 2, :delimiter => ',') %>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        Today's outcome
+                      </td>
+                      <td>
+                        <%= number_with_precision(@outcome_today, :precision => 2, :delimiter => ',') %>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <strong>Today's total</strong>
+                      </td>
+                      <td>
+                        <strong><%= number_with_precision(@total_today, :precision => 2, :delimiter => ',') %></strong>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        Budget daily expenses
+                      </td>
+                      <td>
+                        <%= number_with_precision(@rec_today, :precision => 2, :delimiter => ',') %>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <strong>Wallet</strong>
+                      </td>
+                      <td>
+                        <strong><%= number_with_precision(@money_left, :precision => 2, :delimiter => ',') %></strong>
+                      </td>
+                    </tr>
+                    </table>
+                    <%= javascript_tag do %>
+                      window.expensesURL = "<%= expenses_url %>";
+                      window.expenses = <%=raw @income.to_json %>
+                    <% end %>
+
+                </div>
                 <div class="panel panel-danger">
                   <div class="panel-heading">Your top 3 EM categories</div>
                   <div class="panel-body">

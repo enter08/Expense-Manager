@@ -15,7 +15,7 @@ namespace :db do
   @category7 = Category.create!(name: "Hobbies", active: true, default: false, outcome: true)
   @category8 = Category.create!(name: "Home", active: true, default: true, outcome: true)
   @category9 = Category.create!(name: "Healthcare", active: false, default: false, outcome: true)
-  @category10 = Category.create!(name: "Debt", active: false, default: true, outcome: true)
+  @category10 = Category.create!(name: "Debt", active: false, default: false, outcome: true)
   @category11 = Category.create!(name: "Shopping", active: true, default: true, outcome: true)
   @category12 = Category.create!(name: "Education", active: true, default: true, outcome: true)
   @category13 = Category.create!(name: "Transport", active: true, default: false, outcome: true)

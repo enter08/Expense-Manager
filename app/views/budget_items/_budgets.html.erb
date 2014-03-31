@@ -10,7 +10,7 @@
 					<div class="panel-heading">
 						<strong>Budget for <%= @date2 %></strong>
 					</div>
-					<%= form_tag budget_items_update_budget_path, method: :get do %>
+					<%= form_tag budget_items_edit_budget_path, method: :get do %>
 						<table class="table">
 						<tr>
 							<th></th>
@@ -38,13 +38,13 @@
 				</div>
 					<%= submit_tag "Edit checked", class: "btn btn-default" %><br/></br>
 					<% end %>
-						Click bellow on Show to see your budget for next month.<br/>
+						Click bellow on Show to see your budget for the next month.<br/>
 						<a id="show_id" onclick="document.getElementById('spoiler_id').style.display=''; document.getElementById('show_id').style.display='none';" class="link">[Show]</a><span id="spoiler_id" style="display: none"><a onclick="document.getElementById('spoiler_id').style.display='none'; document.getElementById('show_id').style.display='';" class="link">[Hide]</a>
 						<div class="panel panel-default">
 							<div class="panel-heading">
 							<strong>Budget for <%= @date4 %></strong>
 							</div>
-
+							<%= form_tag budget_items_edit_budget_path, method: :get do %>
 							<table class="table">
 							<tr>
 								<th>Category</th>
@@ -54,6 +54,7 @@
 							</tr>
 							<% @budget_items_next.each do |budget| %>
 								<tr>
+									<td><%= check_box_tag "budget_ids[]", budget.id %> </td>
 									<td><%= budget.category.name %></td>
 									<td><%= number_with_precision(budget.value, :precision => 2, :delimiter => ',') %> €</td>
 									<td><%= link_to "Edit", edit_budget_item_path(budget), class: "btn btn-primary" %></td>
@@ -61,11 +62,15 @@
 								</tr>
 							<% end %>
 							<tr>
+								<th></th>
 								<th>Total</th>
 								<th><%= number_with_precision(@total_next, :precision => 2, :delimiter => ',') %> €</th>
+								<th></th>
+								<th></th>
 							</table>
-
 						</div>
+						<%= submit_tag "Edit checked", class: "btn btn-default" %><br/></br>
+						<% end %>
 						</span>
 
 				</div>

@@ -11,7 +11,7 @@ $(function() {
 		  });
 	 }
 
-  	if($("#categs_chart").length > 0) { 
+  if($("#categs_chart").length > 0) { 
 		Morris.Bar({
 			element: 'categs_chart',
 			data: $('#categs_chart').data('eexpenses'),
@@ -19,6 +19,16 @@ $(function() {
 		  	ykeys: ['expense_value'],
 		  	labels: ['Expense'],
 		  	postUnits: ' €'
+		});
+	}
+
+	if($("#income_chart").length > 0) { 
+		Morris.Donut({
+		  element: 'income_chart',
+		  data: [
+		    {label: "Income", value: gon.income},
+		    {label: "Outcome", value: gon.outcome}
+		  ]
 		});
 	}
 })

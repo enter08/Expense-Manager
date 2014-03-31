@@ -3,6 +3,9 @@ source 'https://rubygems.org'
 gem 'faker', '1.1.2'
 gem 'will_paginate', '3.0.4'
 gem 'bootstrap-will_paginate'
+gem 'gon'
+gem 'whenever', :require => false
+gem "select2-rails"
 
 # group :assets do
 # 	gem 'morrisjs-rails'

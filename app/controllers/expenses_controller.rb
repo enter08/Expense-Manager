@@ -1,4 +1,5 @@
 require 'will_paginate/array' 
+require 'csv'
 
 class ExpensesController < ApplicationController
 
@@ -26,6 +27,21 @@ class ExpensesController < ApplicationController
 			@expenses = current_user.expenses
 		end
 			@expenses = @expenses.order('date DESC').page(params[:page]).per_page(8)
+
+		@income = @expenses.where("date > ? and outcome = false", Date.today.at_beginning_of_month).sum(:expense_value)
+		@outcome = @expenses.where("date > ? and outcome = true", Date.today.at_beginning_of_month).sum(:expense_value)
+		@total = @income - (@outcome).abs
+
+		@budget_items = current_user.budget_items.where(budget_date: Date.today.at_beginning_of_month)
+		@budget = @budget_items.sum(:value)
+
+		@money_left = @budget - (@total).abs
+
+		respond_to do |format|
+			format.html
+			format.csv { send_data @expenses.to_csv }
+			format.xls #{ send_data @expenses.to_csv(col_sep: "\t") }
+		end
 	end
 
 	# (for later use)
@@ -87,7 +103,7 @@ class ExpensesController < ApplicationController
 
 		@expense = Expense.find(params[:id])
 
-		@categories = Category.all.sort{|x,y| counts(y.id) <=> counts(x.id)}
+		@categories = Category.where('active = true').sort{|x,y| counts(y.id) <=> counts(x.id)}
 
 		if params[:category] && params[:search]
 			@expenses = current_user.expenses(conditions: ['description LIKE ?', "%#{params[:search]}%"])
@@ -138,6 +154,25 @@ class ExpensesController < ApplicationController
 		@avg_exp = (@expenses.where("date > ?", Date.today.at_beginning_of_month).sum(:expense_value)/30).round(2)
 		@avg_exp_week = (@expenses.where("date > ?", (Date.today-6.days)).sum(:expense_value)/7).round(2)
 		@max = @expenses.where("date > ?", Date.today.at_beginning_of_month).maximum(:expense_value)
+
+		@income = @expenses.where("date > ? and outcome = false", Date.today.at_beginning_of_month).sum(:expense_value)
+		@outcome = @expenses.where("date > ? and outcome = true", Date.today.at_beginning_of_month).sum(:expense_value)
+		@saldo = @income - (@outcome).abs
+
+		gon.income = @expenses.where("date > ? and outcome = false", Date.today.at_beginning_of_month).sum(:expense_value)
+		gon.outcome = @expenses.where("date > ? and outcome = true", Date.today.at_beginning_of_month).sum(:expense_value)
+
+		@budget_items = current_user.budget_items.where(budget_date: Date.today.at_beginning_of_month)
+		@budget = @budget_items.sum(:value)
+
+		@money_left = @budget - (@saldo).abs
+
+		@income_today = @expenses.where("date = ? and outcome = false", Date.today).sum(:expense_value)
+		@outcome_today = @expenses.where("date = ? and outcome = true", Date.today).sum(:expense_value)
+
+		@total_today = @income_today - (@outcome_today).abs
+
+		@rec_today = -(@budget/((Date.today + 1.month).at_beginning_of_month - 1.days).day).abs
 	end
 
 	def count_exps_month(category_id)

@@ -11,8 +11,10 @@
     </div>
     <%= f.label :category_id, "Category" %>
     <%= f.collection_select(:category_id, Category.active_outcome, :id, :name,  {prompt: "Select a category"}, {class: "form-control"}) %>
-    <%= f.label :location, "Location" %>
-    <%= f.collection_select(:location_id, Location.all, :id, :name, {prompt: "Select a location", selected: 17}, {class: "form-control"}) %>
+    
+    <%= f.label :location_id, "Location" %><br/>
+    <%= f.hidden_field :location_id, {class: "form-control"} %><br/>
+
     <%= f.label :bill_id, "Upload photo" %><br/>
     <%= f.file_field :bill, {class: "form-control"}%>
   </div>

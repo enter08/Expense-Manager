@@ -16,6 +16,7 @@
 //= require bootstrap-datepicker
 //= require raphael
 //= require morris
+//= require select2
 //= require_tree .
 
 var todaysDate = new Date();

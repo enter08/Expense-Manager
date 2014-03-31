@@ -1,0 +1,27 @@
+<div class="col-md-5 center-block">
+	<div class="panel panel-default">
+	  <div class="panel-heading">Monthly budget management</div>
+	  <div class="panel-body">
+	    <p>Edit the budgets for the selected categories. If you want to set a budget to 0, we recommand you to use the delete button on the show page.</p>	
+		<%= form_tag budget_items_update_budget_path, method: :put do %>
+			<% @budget_items.each do |budget_item| %><br/>
+				<strong><%= budget_item.category.name %></strong>
+				<%= fields_for "budget_items[]", budget_item do |f| %>
+				  <% if budget_item.errors.any? %>
+				    <h4><%= pluralize(budget_item.errors.count, "error") %> prohibited this budget item from being saved:</h4>
+				    <ul>
+			  		  <% budget_item.errors.full_messages.each do |msg| %>
+						<li> <%= msg %> </li>
+			  		  <% end %>
+				    </ul>
+				  <% end %>
+					<%= f.text_field :value, class: "form-control" %>
+					<%= f.label :category_id, "Change category" %>
+          			<%= f.collection_select(:category_id, Category.where(active: true, outcome: true), :id, :name,  {prompt: "Select a category"}, {class: "form-control"}) %>
+				<% end %><br/>
+			<% end %><br/>
+			<%= submit_tag "Update", class: "btn btn-default" %>
+		<% end %>
+	  </div>
+	</div>
+</div>
