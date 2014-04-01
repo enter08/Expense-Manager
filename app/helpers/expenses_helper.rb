@@ -1,12 +1,22 @@
  module ExpensesHelper
   def expenses_chart_data
+  	expenses_by_day = Expense.total_grouped_by_day(Date.today - 1.month )
+		((Date.today - 1.month)..Date.today).map do |d|
+			{
+				date: d.to_date,
+				expense_value: expenses_by_day.fetch(d, []).first.try(:total_expense) || 0
+			}
+		end
+  end
+
+  def expenses_chart_data2
   	expenses_by_day = Expense.total_grouped_by_day(Date.today.at_beginning_of_month)
-	(Date.today.at_beginning_of_month..Date.today).map do |d|
-		{
-			date: d.to_date,
-			expense_value: expenses_by_day.fetch(d, []).first.try(:total_expense) || 0
-		}
-	end
+		(Date.today.at_beginning_of_month..Date.today).map do |d|
+			{
+				date: d.to_date,
+				expense_value: expenses_by_day.fetch(d, []).first.try(:total_expense) || 0
+			}
+		end
   end
 
   def expenses_chart_data_week

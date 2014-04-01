@@ -38,7 +38,7 @@ class BudgetItemsController < ApplicationController
        		current_user.budget_items.create(p.merge(budget_date: @date))
 		end
 
-		redirect_to root_path
+		redirect_to budget_items_path
 	end
 
 	def edit_budget

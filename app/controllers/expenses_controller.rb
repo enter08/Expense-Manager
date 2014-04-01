@@ -86,6 +86,7 @@ class ExpensesController < ApplicationController
 
 	def create
 		@expense = current_user.expenses.build(expense_params)
+		@expense.save
 		if @expense.save
 			redirect_to expenses_path
 		else

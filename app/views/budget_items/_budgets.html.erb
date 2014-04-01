@@ -36,8 +36,8 @@
 							<th></th>
 						</table>
 				</div>
-					<%= submit_tag "Edit checked", class: "btn btn-default" %><br/></br>
-					<% end %>
+				<%= submit_tag "Edit checked", class: "btn btn-default", id: "current-month" %><br/></br>
+				<% end %>
 						Click bellow on Show to see your budget for the next month.<br/>
 						<a id="show_id" onclick="document.getElementById('spoiler_id').style.display=''; document.getElementById('show_id').style.display='none';" class="link">[Show]</a><span id="spoiler_id" style="display: none"><a onclick="document.getElementById('spoiler_id').style.display='none'; document.getElementById('show_id').style.display='';" class="link">[Hide]</a>
 						<div class="panel panel-default">
@@ -69,7 +69,7 @@
 								<th></th>
 							</table>
 						</div>
-						<%= submit_tag "Edit checked", class: "btn btn-default" %><br/></br>
+						<%= submit_tag "Edit checked", class: "btn btn-default", id: "next-month" %><br/></br>
 						<% end %>
 						</span>
 

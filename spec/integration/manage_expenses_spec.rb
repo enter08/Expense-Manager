@@ -55,4 +55,23 @@ feature 'Manage expenses' do
 		expect(page).to have_content("195.5 €")
 		expect(page).to have_css 'div.note', text: "You've spent 195.5€ when you bought a new bike."
 	end	
+
+	scenario 'test image upload' do
+		visit root_path
+		new_categories
+		@user = FactoryGirl.create(:user)
+		sign_in(@user)
+		click_link('New expense')
+		fill_in "Description", with: "Bought a new bike"
+		fill_in "Amount", with: "195.5"
+		fill_in "Date", with: "2014-06-05"
+		select "Entertainment", from: "Category"
+		attach_file('expense_bill', Rails.root+'public/images/medium/def.jpg')
+		click_button('Add expense')
+		expect(page).not_to have_css 'h4.expense_d', text: "Bought a new bike"
+		expect(page).to have_css 'h4.ex_v', text: "195.5"
+		expect(page).to have_css 'h3.ex_c', text: "Entertainment"
+		expect(page).to have_content "05. June, 2014."
+		expect(page).to have_css("img[alt=Def]")
+	end
 end

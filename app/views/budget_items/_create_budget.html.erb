@@ -20,8 +20,8 @@
               <%= text_field_tag 'budget_date', Date.today.at_beginning_of_month, class: "form-control"%><p class="input-group-addon"></p>
             </div>
             <% @categories2.each do | cat | %>
-              <%= label_tag cat.name %> 
-              <%= text_field_tag 'budget_items[][value]', nil, class: 'form-control' %>
+              <%= label_tag cat.id, cat.name %> 
+              <%= text_field_tag 'budget_items[][value]', nil, class: 'form-control', id: "#{cat.id}" %>
               <%= hidden_field_tag 'budget_items[][category_id]', cat.id %>
             <% end %><br/>
             <%= submit_tag("Submit", class: "btn btn-primary") %>

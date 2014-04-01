@@ -26,14 +26,24 @@ module ExpensesHelpers
 	end
 
 	def new_categories
-		@category1 = Category.create!(name: "Car", active: true)
-		@category2 = Category.create!(name: "Food & Drink", active: true)
-		@category3 = Category.create!(name: "Family & Personal", active: true)
-		@category4 = Category.create!(name: "Bills", active: true)
-		@category5 = Category.create!(name: "Entertainment", active: true)
+		@category1 = Category.create!(name: "Car", active: true, outcome: true)
+		@category2 = Category.create!(name: "Food & Drink", active: true, outcome: true)
+		@category3 = Category.create!(name: "Family & Personal", active: true, outcome: true)
+		@category4 = Category.create!(name: "Bills", active: true, outcome: true)
+		@category5 = Category.create!(name: "Entertainment", active: true, outcome: true)
+	end
+
+	def new_budget_items
+		@user = FactoryGirl.create(:user)
+		new_categories
+		@budget_item1 = BudgetItem.create!(value: 100, budget_date: "2014-04-01", user: @user, category: @category1)
+		@budget_item2 = BudgetItem.create!(value: 100, budget_date: "2014-04-01", user: @user, category: @category2)
+		@budget_item3 = BudgetItem.create!(value: 100, budget_date: "2014-04-01", user: @user, category: @category3)
+		@budget_item4 = BudgetItem.create!(value: 100, budget_date: "2014-04-01", user: @user, category: @category4)
+		@budget_item5 = BudgetItem.create!(value: 100, budget_date: "2014-04-01", user: @user, category: @category5)
 	end
 end
 
 RSpec.configure do |config|
-	config.include SignInHelpers
+	config.include ExpensesHelpers
 end

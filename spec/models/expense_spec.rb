@@ -7,9 +7,9 @@ describe Expense do
 	let(:category2) { FactoryGirl.create(:category2) }
 	let(:category3) { FactoryGirl.create(:category3) }
 
-  	before { @expense = user.expenses.build(description: "Bougth something1", expense_value: "536.23", date: Date.today, category_id: 2) }
+  before { @expense = user.expenses.build(description: "Bougth something1", expense_value: "536.23", date: Date.today, category_id: 2) }
 
-  	subject { @expense }
+  subject { @expense }
 
 	it { should respond_to(:description) }
 	it { should respond_to(:user_id) }
@@ -24,13 +24,12 @@ describe Expense do
 	end
 
 	describe "when expense_value is not present" do
-		before { @expense.expense_value = nil }
-		 it { should_not validate_presence_of(:expense_value) }
+		 before { @expense.expense_value = nil }
+		 it { should_not be_valid }
 	end
 
 	describe "when category_id is not present" do
-		before { @expense.category_id = nil }
-		 it { should_not validate_presence_of(:category_id) }
+		 it { should validate_presence_of(:category_id) }
 	end
 
 	describe "with blank description" do
