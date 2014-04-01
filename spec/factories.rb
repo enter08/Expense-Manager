@@ -14,7 +14,7 @@ FactoryGirl.define do
   factory :expense do
   	sequence(:description) { |n| "Bought something#{n}" }
   	sequence(:expense_value) { |n| "#{1 + rand(44)}" }
-    date { rand(30).days.ago }
+    date { (Date.today - 1.month) + rand(60).days }
     outcome true
   	user
   	category

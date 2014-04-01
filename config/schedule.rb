@@ -20,6 +20,6 @@
 # Learn more: http://github.com/javan/whenever
 
 set :output, "log/cron_log.log"
-every 3.minutes do
-  runner "BudgetsHelper.copyBudget"
+every 1.month, :at => 'start of the month at 10:00am' do
+  runner "BudgetsHelper.copyBudgets"
 end

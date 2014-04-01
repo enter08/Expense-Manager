@@ -12,7 +12,8 @@
           </div>
           
           <div class="panel-body">
-          <p>Enter the amount of money you want to spend by your <%= link_to "active categories", categories_customize_path %>. If you don't want to spend money in some category, leave the field blank.</p>
+          <p>Enter the amount of money you want to spend by your <%= link_to "active categories", categories_customize_path %>. If you don't want to spend money in some category, leave the field blank.<br/>
+          <strong>Note:</strong> On the first in 10:00 AM of every month, the budget of the previous month will be coppied to the next if you didn't defined your own.</p>
           <%= form_tag budget_items_create_budget_path, method: :post do %>
             <div class="date" data-behaviour="datepicker1">
               <%= label_tag "Month" %>

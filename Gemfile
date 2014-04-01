@@ -6,6 +6,8 @@ gem 'bootstrap-will_paginate'
 gem 'gon'
 gem 'whenever', :require => false
 gem "select2-rails"
+gem 'execjs'
+gem 'therubyracer', '~> 0.12.1'
 
 # group :assets do
 # 	gem 'morrisjs-rails'

@@ -96,7 +96,7 @@ class ExpensesController < ApplicationController
 	def destroy
 		@expense = current_user.expenses.find(params[:id])
 		@expense.destroy
-   	  	redirect_to expenses_path
+   	redirect_to expenses_path
 	end
 
 	def edit

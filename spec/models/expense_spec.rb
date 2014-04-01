@@ -19,8 +19,18 @@ describe Expense do
 	it { should be_valid }
 
 	describe "when user_id is not present" do
-	    before { @expense.user_id = nil }
+	  before { @expense.user_id = nil }
 		it { should_not be_valid }
+	end
+
+	describe "when expense_value is not present" do
+		before { @expense.expense_value = nil }
+		 it { should_not validate_presence_of(:expense_value) }
+	end
+
+	describe "when category_id is not present" do
+		before { @expense.category_id = nil }
+		 it { should_not validate_presence_of(:category_id) }
 	end
 
 	describe "with blank description" do
