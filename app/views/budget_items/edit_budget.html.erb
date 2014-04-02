@@ -8,13 +8,15 @@
 				<strong><%= budget_item.category.name %></strong>
 				<%= fields_for "budget_items[]", budget_item do |f| %>
 				  <% if budget_item.errors.any? %>
-				    <h4><%= pluralize(budget_item.errors.count, "error") %> prohibited this budget item from being saved:</h4>
-				    <ul>
-			  		  <% budget_item.errors.full_messages.each do |msg| %>
-						<li> <%= msg %> </li>
-			  		  <% end %>
-				    </ul>
-				  <% end %>
+				   <div class="alert alert-error">
+				      <button type="button" class="close" data-dismiss="alert">&times;</button>
+				      <ul>
+				         <% budget_item.errors.full_messages.each do |msg| %>
+				         <li><%= msg %></li>
+				         <% end %>
+				      </ul>
+				   </div>
+					<% end %>
 					<%= f.text_field :value, class: "form-control" %>
 					<%= f.label :category_id, "Change category" %>
           			<%= f.collection_select(:category_id, Category.where(active: true, outcome: true), :id, :name,  {prompt: "Select a category"}, {class: "form-control"}) %>

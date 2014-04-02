@@ -30,15 +30,20 @@ class BudgetItemsController < ApplicationController
 	end
 
 	def create_budget
+		@categories = Category.where(active: true).sort{|x,y| counts(y.id) <=> counts(x.id)}
+		@categories2 = Category.where(active: true, outcome: true)
 
 		#date = params[:budget_items].map {|array2| array2.first}
 		@date = params[:budget_date]
 
 		params[:budget_items].each do |p|
-       		current_user.budget_items.create(p.merge(budget_date: @date))
+       	@budget_items =	current_user.budget_items.create(p.merge(budget_date: @date))
 		end
-
-		redirect_to budget_items_path
+		if @budget_items.save
+			redirect_to budget_items_path
+		else
+			render 'new'
+		end
 	end
 
 	def edit_budget
@@ -63,15 +68,31 @@ class BudgetItemsController < ApplicationController
 	end
 
 	def update
+		@categories = Category.where(active: true).sort{|x,y| counts(y.id) <=> counts(x.id)}
+		@categories2 = Category.where(active: true, outcome: true)
+		
 		@budget_item = current_user.budget_items.find(params[:id])
 		@budget_item.update(budget_params)
-		redirect_to budget_items_path
+
+		if @budget_item.save
+			redirect_to budget_items_path
+		else
+			render 'edit'
+		end
 	end
 
 	def destroy
 		@budget_item = current_user.budget_items.find(params[:id])
 		@budget_item.destroy
-   	  	redirect_to budget_items_path
+   	redirect_to budget_items_path
+	end
+
+	def delete_budget
+		@budget_items = current_user.budget_items.where(budget_date: Date.today.at_beginning_of_month)
+		@budget_items.each do |budget_item|
+			budget_item.destroy
+		end
+		redirect_to budget_items_path
 	end
 
 	private

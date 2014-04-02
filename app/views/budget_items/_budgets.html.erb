@@ -1,7 +1,7 @@
 <ul class="nav nav-tabs">
 	<li class="active"> <%= link_to "Show", budget_items_path %></li>
 	<li ><%= link_to "New", new_budget_item_path %></li>
-	<li><%= link_to "Delete" %></li>
+	<li><%= link_to "Delete", budget_items_delete_budget_path(@budget_items), method: :delete, data: {confirm: 'Are you sure?'} %></li>
 	<div class="panel panel-default">
 		<div align="right" class="panel-heading">Expense Manager</div>
 			<div class="panel-body">

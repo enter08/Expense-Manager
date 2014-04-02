@@ -42,14 +42,13 @@
                   <%= f.password_field :current_password, class: "form-control" %></div><br/>
                   <button type="submit" class="btn btn-primary", class: "form-control">Update</button>
                   <% end %>
-                  </div>
+                  
                   <div><legend>Cancel my account</legend>
 
                   <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), class: "btn btn-primary", :data => { :confirm => "Are you sure?" }, :method => :delete %></p>
-
-                  <%= link_to "Back", :back %>
                   </div>
                   <%= render "devise/shared/links" %>
+                  </div>
                   </div>
                 </div>
               </div>

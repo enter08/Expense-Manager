@@ -11,6 +11,19 @@
           <% end %>
           <div class="row"><%= content_tag :div, "", id: "expenses-chart", data: {expenses: expenses_chart_data} %>
         </div>
+        <% if @budget >= @total.abs %>
+          <div class="progress progress-striped active">
+            <div class="progress-bar"  role="progressbar" aria-valuenow="<%= @percentage%>" aria-valuemin="0" aria-valuemax="100" style="width: <%= @percentage%>%">
+              <span class="sr-only"><%= @percentage%>% Complete</span>
+            </div>
+          </div>
+        <% else %>
+          <div class="progress">
+            <div class="progress-bar progress-bar-danger" style="width: 100%">
+              <span class="sr-only">100% Complete (danger)</span>
+            </div>
+          </div>
+        <% end %>
         </center>
         <% @expenses.each_with_index do |expense, index| %>
           <% if index % 4 == 0 %>

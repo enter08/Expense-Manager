@@ -41,12 +41,12 @@ html,body{
 }
 
 @media (max-width: 767px) {
-#footer {
-  margin-left: -20px;
-  margin-right: -20px;
-  padding-left: 20px;
-  padding-right: 20px;
-}
+  #footer {
+    margin-left: -20px;
+    margin-right: -20px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 }
 
 a.list-group-item.active1, a.list-group-item.active1:hover, a.list-group-item.active1:focus {
@@ -60,6 +60,16 @@ a.list-group-item.active1, a.list-group-item.active1:hover, a.list-group-item.ac
     display: block;
     margin-left: auto;
     margin-right: auto;
+}
+
+#error_explanation {
+  @extend .alert;
+  @extend .alert-error;
+  @extend .alert-block;
+}
+
+.field_with_errors {
+  @extend .control-group.error
 }
 
 

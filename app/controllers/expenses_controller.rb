@@ -28,14 +28,16 @@ class ExpensesController < ApplicationController
 		end
 			@expenses = @expenses.order('date DESC').page(params[:page]).per_page(8)
 
-		@income = @expenses.where("date > ? and outcome = false", Date.today.at_beginning_of_month).sum(:expense_value)
-		@outcome = @expenses.where("date > ? and outcome = true", Date.today.at_beginning_of_month).sum(:expense_value)
+		@income = current_user.expenses.where("date > ? and outcome = false", Date.today.at_beginning_of_month).sum(:expense_value)
+		@outcome = current_user.expenses.where("date > ? and outcome = true", Date.today.at_beginning_of_month).sum(:expense_value)
 		@total = @income - (@outcome).abs
 
 		@budget_items = current_user.budget_items.where(budget_date: Date.today.at_beginning_of_month)
 		@budget = @budget_items.sum(:value)
 
 		@money_left = @budget - (@total).abs
+
+		@percentage = ((@total.abs)/@budget)*100
 
 		respond_to do |format|
 			format.html
@@ -90,6 +92,7 @@ class ExpensesController < ApplicationController
 		if @expense.save
 			redirect_to expenses_path
 		else
+			@categories = Category.where('active = true').sort{|x,y| counts(y.id) <=> counts(x.id)}
 			render 'new'
 		end
 	end

@@ -7,21 +7,24 @@
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
 		</button>
-		<a class="navbar-brand" href="/">Expense Manager</a>
+		<a class="navbar-brand" href="/"><img src="<%= image_path('em.png') %>"  height="24px" width="24px" /> Expense Manager</a>
 	</div>
 
 	<!-- Collect the nav links, forms, and other content for toggling -->
 	<div class="collapse navbar-collapse navbar-ex1-collapse">
 		<ul class="nav navbar-nav">
-			<li class="active"><a href="/expenses">My expenses</a></li>
-			<li><a href="/expenses/new/">New expense</a></li>
+			<% if user_signed_in? %>
+				<li class="active"><a href="/expenses">My expenses</a></li>
+				<li><a href="/expenses/new/">New expense</a></li>
+			<% end %>
 		</ul>
-	
-		<%= form_tag expenses_path, method: 'get', class: "navbar-form navbar-left", role: "search" do  %>
-		<div class="form-group">
-			<%= text_field_tag :search, params[:search], { class: "form-control", placeholder: "Find your expense", id: "Search" } %>
-		</div>
-			<%= submit_tag "Search", { class: "btn btn-default", name: nil }%>
+		<% if user_signed_in? %>
+			<%= form_tag expenses_path, method: 'get', class: "navbar-form navbar-left", role: "search" do  %>
+			<div class="form-group">
+				<%= text_field_tag :search, params[:search], { class: "form-control", placeholder: "Find your expense", id: "Search" } %>
+			</div>
+				<%= submit_tag "Search", { class: "btn btn-default", name: nil }%>
+			<% end %>	
 		<% end %>	
 		<ul class="nav navbar-nav navbar-right">
 			<% if user_signed_in? %>

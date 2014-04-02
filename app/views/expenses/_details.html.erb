@@ -16,7 +16,14 @@
 						</div>
 					</div>
 				</div>
-				<div align="right" style="font-size:13px"><%= @date2 %></div>
+				<div align="right" style="font-size:13px"><%= @date2 %><br/>
+				<% if @expense.location %>
+          <% if @expense.location.name == "Abroad" %>
+            <br/><span style="font-size:12px;"><%= @expense.location.name %></span>
+          <% else %>
+            <br/><span style="font-size:12px;">In: <%= @expense.location.name %></span>
+          <% end %>
+        <% end %></div>
 			</div>
 		</div>
 	</div>

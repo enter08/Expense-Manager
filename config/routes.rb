@@ -15,6 +15,7 @@ Expman::Application.routes.draw do
   match 'budget_items/create_budget', via: :post
   match 'budget_items/edit_budget', via: :get
   match 'budget_items/update_budget', via: :put
+  match 'budget_items/delete_budget', via: :delete
   resources :budget_items
   
   #match 'locations', to: 'locations#index', via: :get

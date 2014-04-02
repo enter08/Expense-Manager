@@ -1,8 +1,8 @@
-<% if @expense.errors.any? %>
+<% if @budget_items.errors.any? %>
    <div class="alert alert-error">
       <button type="button" class="close" data-dismiss="alert">&times;</button>
       <ul>
-         <% @expense.errors.full_messages.each do |msg| %>
+         <% @budget_items.errors.full_messages.each do |msg| %>
          <li><%= msg %></li>
          <% end %>
       </ul>
