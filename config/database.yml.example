@@ -1,0 +1,7 @@
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: expman_production
+  pool: 5
+  username: expman
+  password:
