@@ -17,12 +17,12 @@ class ExpensesController < ApplicationController
 		@categories = Category.where('active = true').sort{|x,y| counts(y.id) <=> counts(x.id)}
 
 		if params[:category] && params[:search]
-			@expenses = current_user.expenses(conditions: ['lower(description) LIKE ?', "%#{params[:search].downcase}%"])
+			@expenses = search_description
 			@expenses.select!{ |c| c.category_id == params[:category] }
 		elsif params[:category]
 			@expenses = current_user.expenses.where(category_id: params[:category])
 		elsif params[:search]
-			@expenses = current_user.expenses.where(['description LIKE ?', "%#{params[:search]}%"])
+			@expenses = search_description
 		else
 			@expenses = current_user.expenses
 		end
@@ -44,6 +44,10 @@ class ExpensesController < ApplicationController
 			format.csv { send_data @expenses.to_csv }
 			format.xls #{ send_data @expenses.to_csv(col_sep: "\t") }
 		end
+	end
+
+	def search_description
+		current_user.expenses.where(['lower(description) LIKE ?', "%#{params[:search]}%"])
 	end
 
 	# (for later use)
