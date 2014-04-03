@@ -1,6 +1,6 @@
  module ExpensesHelper
   def expenses_chart_data
-  	expenses_by_day = Expense.total_grouped_by_day(Date.today - 1.month )
+  	expenses_by_day = current_user.expenses.total_grouped_by_day(Date.today - 1.month )
 		((Date.today - 1.month)..Date.today).map do |d|
 			{
 				date: d.to_date,
@@ -10,7 +10,7 @@
   end
 
   def expenses_chart_data2
-  	expenses_by_day = Expense.total_grouped_by_day(Date.today.at_beginning_of_month)
+  	expenses_by_day = current_user.expenses.total_grouped_by_day(Date.today.at_beginning_of_month)
 		(Date.today.at_beginning_of_month..Date.today).map do |d|
 			{
 				date: d.to_date,
@@ -20,7 +20,7 @@
   end
 
   def expenses_chart_data_week
-  	expenses_by_day = Expense.total_grouped_by_day((Date.today-6.days))
+  	expenses_by_day = current_user.expenses.total_grouped_by_day((Date.today-6.days))
 	((Date.today-6.days)..Date.today).map do |d|
 		{
 			date: d.to_date,
