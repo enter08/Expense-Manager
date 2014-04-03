@@ -17,7 +17,7 @@ class ExpensesController < ApplicationController
 		@categories = Category.where('active = true').sort{|x,y| counts(y.id) <=> counts(x.id)}
 
 		if params[:category] && params[:search]
-			@expenses = current_user.expenses(conditions: ['description LIKE ?', "%#{params[:search]}%"])
+			@expenses = current_user.expenses(conditions: ['lower(description) LIKE ?', "%#{params[:search].downcase}%"])
 			@expenses.select!{ |c| c.category_id == params[:category] }
 		elsif params[:category]
 			@expenses = current_user.expenses.where(category_id: params[:category])
