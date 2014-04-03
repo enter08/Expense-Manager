@@ -1,0 +1,10 @@
+namespace :image_magick do
+	desc "Install latest stable release of ImageMagick"
+	task :install do
+		on roles(:web) do
+			execute :sudo, "apt-get", "-y", "update"
+			execute :sudo, "apt-get", "-y", "install", "imagemagick"
+		end
+	end
+	after "deploy:install", :install
+end
