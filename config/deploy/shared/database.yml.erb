@@ -4,5 +4,5 @@ production:
   database: <%= fetch(:full_app_name) %>
   pool: 5
   username: <%= fetch(:application) %>
-  password: 
+  password: <%= fetch(:postgresql_password) %>
   host: localhost
