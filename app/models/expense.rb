@@ -14,15 +14,15 @@ class Expense < ActiveRecord::Base
 	validates_date :date
 
 	def self.total_grouped_by_day(start)
-		current_user.expenses = where(date: start..Time.zone.now)
-		current_user.expenses = current_user.expenses.select("date, sum(expense_value) as total_expense").group("date(date)")
-		current_user.expenses.group_by { |o| o.date.to_date }
+		expenses = where(date: start..Time.zone.now)
+		expenses = expenses.select("date, sum(expense_value) as total_expense").group("date(date)")
+		expenses.group_by { |o| o.date.to_date }
 	end
 
 	def self.total_grouped_by_day2(start)
-	  current_user.expenses = where(date: start..Time.zone.now)
-	  current_user.expenses = current_user.expenses.select("date, sum(expense_value) as total_expense").group("date(date)")
-	  current_user.expenses.group_by { |o| o.date.to_date }
+	  expenses = where(date: start..Time.zone.now)
+	  expenses = expenses.select("date, sum(expense_value) as total_expense").group("date(date)")
+	  expenses.group_by { |o| o.date.to_date }
 	end
 
 	def self.to_csv(options = {})
