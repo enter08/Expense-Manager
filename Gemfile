@@ -8,7 +8,6 @@ gem 'whenever', :require => false
 gem "select2-rails"
 gem 'execjs'
 gem 'therubyracer', '~> 0.12.1'
-gem "ci_reporter"
 
 # group :assets do
 # 	gem 'morrisjs-rails'
@@ -22,6 +21,7 @@ end
 gem 'factory_girl_rails', '4.2.1'
 
 group :test do
+  gem 'ci_reporter', '1.8.0'
   gem 'capybara', '2.1.0'
   gem 'database_cleaner', github: 'bmabey/database_cleaner'
   gem 'shoulda-matchers'

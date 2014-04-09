@@ -1,4 +1,5 @@
 require 'spec_helper'
+
 feature 'Manage expenses' do
 	scenario 'list all expenses by category' do
 		expenses_list
