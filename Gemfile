@@ -8,6 +8,7 @@ gem 'whenever', :require => false
 gem "select2-rails"
 gem 'execjs'
 gem 'therubyracer', '~> 0.12.1'
+gem "ci_reporter"
 
 # group :assets do
 # 	gem 'morrisjs-rails'
