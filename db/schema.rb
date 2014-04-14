@@ -11,16 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140328095544) do
+ActiveRecord::Schema.define(version: 20140327125153) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "budget_items", force: true do |t|
+    t.decimal "value"
+    t.date    "budget_date"
     t.integer "user_id"
     t.integer "category_id"
-    t.date    "budget_date"
-    t.decimal "value"
   end
 
   add_index "budget_items", ["category_id"], name: "index_budget_items_on_category_id", using: :btree
