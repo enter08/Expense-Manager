@@ -1,6 +1,6 @@
 module BudgetsHelper
 
-  def self.copyBudgets
+  def self.copy_budgets
 
     @budget_items = BudgetItem.where('budget_date = ?', Date.today.at_beginning_of_month)
     @budget_items_next = BudgetItem.where('budget_date = ?', (Date.today + 1.month).at_beginning_of_month)

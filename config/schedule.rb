@@ -21,5 +21,5 @@
 
 set :output, "log/cron_log.log"
 every 1.month, :at => 'start of the month at 10:00am' do
-  runner "BudgetsHelper.copyBudgets"
+  runner "BudgetsHelper.copy_budgets"
 end
