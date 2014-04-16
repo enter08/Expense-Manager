@@ -26,18 +26,18 @@ feature 'Manage expenses' do
 		expect(page).to have_css("div.thumbnail", count: 4)
 	end
 
-	# scenario 'search expenses via input form' do
-	# 	add_single_expense
-	# 	click_link('New expense')
-	# 	fill_in "Description", with: "Bought a new car"
-	# 	fill_in "Amount", with: "15000"
-	# 	fill_in "Date", with: "2014-06-05"
-	# 	select "Car", from: "Category"
-	# 	click_button('Add expense')
-	# 	fill_in "Search", with: "bike"
-	# 	click_button("Search")
-	# 	expect(page).to have_css("div.thumbnail", count: 1)
-	# 	expect(page).to have_css 'h4.ex_v', text: "195.5"
-	# 	expect(page).not_to have_css 'h4.ex_v', text: "15000"
-	# end
+	scenario 'search expenses via input form' do
+		add_single_expense
+		click_link('New expense')
+		fill_in "Description", with: "Bought a new car"
+		fill_in "Amount", with: "15000"
+		fill_in "Date", with: "2014-06-05"
+		select "Car", from: "Category"
+		click_button('Add expense')
+		fill_in "Search", with: "bike"
+		click_button("Search")
+		expect(page).to have_css("div.thumbnail", count: 1)
+		expect(page).to have_css 'h4.ex_v', text: "195.5"
+		expect(page).not_to have_css 'h4.ex_v', text: "15000"
+	end
 end
