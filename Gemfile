@@ -16,7 +16,7 @@ gem 'searchkick'
 # group :assets do
 # 	gem 'morrisjs-rails'
 # 	gem 'raphael-rails'
-# end .
+# end . ...
 
 group :development, :test do
   gem 'rspec-rails', '2.13.1'
