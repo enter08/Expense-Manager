@@ -11,11 +11,12 @@ gem 'therubyracer', '~> 0.12.1'
 gem 'simplecov-rcov'
 gem 'simplecov'
 gem 'backup'
+gem 'searchkick'
 
 # group :assets do
 # 	gem 'morrisjs-rails'
 # 	gem 'raphael-rails'
-# end
+# end .
 
 group :development, :test do
   gem 'rspec-rails', '2.13.1'

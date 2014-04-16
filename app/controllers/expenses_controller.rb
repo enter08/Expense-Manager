@@ -18,15 +18,15 @@ class ExpensesController < ApplicationController
 
 		if params[:category] && params[:search]
 			@expenses = search_description
-			@expenses.select!{ |c| c.category_id == params[:category] }
+			@expenses.select!{ |c| c.category_id == params[:category] }.order('date DESC').page(params[:page]).per_page(8)
 		elsif params[:category]
-			@expenses = current_user.expenses.where(category_id: params[:category])
+			@expenses = current_user.expenses.where(category_id: params[:category]).order('date DESC').page(params[:page]).per_page(8)
 		elsif params[:search]
 			@expenses = search_description
 		else
-			@expenses = current_user.expenses
+			@expenses = current_user.expenses.order('date DESC').page(params[:page]).per_page(8)
 		end
-			@expenses = @expenses.order('date DESC').page(params[:page]).per_page(8)
+			#@expenses = @expenses.order('date DESC').page(params[:page]).per_page(8)
 
 		@income = current_user.expenses.where("date > ? and outcome = false", Date.today.at_beginning_of_month).sum(:expense_value)
 		@outcome = current_user.expenses.where("date > ? and outcome = true", Date.today.at_beginning_of_month).sum(:expense_value)
@@ -47,7 +47,8 @@ class ExpensesController < ApplicationController
 	end
 
 	def search_description
-		current_user.expenses.where(['lower(description) LIKE ?', "%#{params[:search]}%"])
+		current_user.expenses.order('date DESC').page(params[:page]).per_page(8).search(params[:search], where: {user_id: current_user.id})
+		#current_user.expenses.where(['lower(description) LIKE ?', "%#{params[:search]}%"])
 	end
 
 	# (for later use)

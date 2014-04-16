@@ -1,4 +1,5 @@
 class Expense < ActiveRecord::Base
+	searchkick
 	belongs_to :user
 	belongs_to :category
   belongs_to :location
