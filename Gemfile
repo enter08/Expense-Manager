@@ -8,8 +8,6 @@ gem 'whenever', :require => false
 gem "select2-rails"
 gem 'execjs'
 gem 'therubyracer', '~> 0.12.1'
-gem 'simplecov-rcov'
-gem 'simplecov'
 gem 'backup'
 gem 'searchkick'
 
@@ -25,6 +23,8 @@ end
 gem 'factory_girl_rails', '4.2.1'
 
 group :test do
+  gem 'simplecov-rcov'
+  gem 'simplecov'
   gem 'ci_reporter', '1.8.0'
   gem 'capybara', '2.1.0'
   gem 'database_cleaner', github: 'bmabey/database_cleaner'
