@@ -3,7 +3,7 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-if Raile.env.test?
+if Rails.env.test?
 	require 'ci/reporter/rake/rspec'     # use this if you're using RSpec
 	require 'ci/reporter/rake/cucumber'  # use this if you're using Cucumber
 end
