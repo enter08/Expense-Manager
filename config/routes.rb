@@ -22,5 +22,13 @@ Expman::Application.routes.draw do
 
   root to: 'high_voltage/pages#show', id: 'homepage'
   #match '/delete', to: 'expenses#destroy', via: 'delete'
+  
+  # scope "/:locale" do
+  #   resources :expenses
+  # end
+
+  # scope "(:locale)", locale: /en|me/ do
+  #   resources :expenses
+  # end
 
 end

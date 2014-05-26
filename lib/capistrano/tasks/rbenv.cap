@@ -19,5 +19,5 @@ namespace :rbenv do
       execute :rbenv, "rehash"
     end
   end
-  after "deploy:install", :install
+  #after "deploy:install", :install
 end

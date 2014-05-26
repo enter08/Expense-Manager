@@ -1,6 +1,6 @@
-namespace :deploy do
-  after :updated, "assets:precompile"
-end
+#namespace :deploy do
+#  after :updated, "assets:precompile"
+#end
 
 namespace :assets do
   desc "Precompile assets locally and then rsync to web servers"

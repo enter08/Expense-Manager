@@ -9,7 +9,11 @@ gem "select2-rails"
 gem 'execjs'
 gem 'therubyracer', '~> 0.12.1'
 gem 'backup'
-gem 'searchkick'
+gem 'mandrill-api'
+#gem 'searchkick'
+gem 'logstasher'
+gem 'elasticsearch-model', git: 'git://github.com/elasticsearch/elasticsearch-rails.git'
+gem 'elasticsearch-rails', git: 'git://github.com/elasticsearch/elasticsearch-rails.git'
 
 # group :assets do
 # 	gem 'morrisjs-rails'

@@ -1,5 +1,9 @@
+require 'elasticsearch/model'
+
 class Expense < ActiveRecord::Base
-	searchkick
+	#include Elasticsearch::Model
+	include Searchable
+	#searchkick
 	belongs_to :user
 	belongs_to :category
   belongs_to :location

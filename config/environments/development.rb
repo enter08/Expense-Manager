@@ -29,4 +29,26 @@ Expman::Application.configure do
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
   config.assets.debug = true
+
+  # Enable the logstasher logs for the current environment
+  config.logstasher.enabled = true
+
+  # This line is optional if you do not want to suppress app logs in your <environment>.log
+  config.logstasher.suppress_app_log = false
+
+  # Enable logging of controller params
+  config.logstasher.log_controller_parameters = true
+
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+  config.action_mailer.delivery_method = :mandrill_delivery
+
+  config.action_mailer.smtp_settings = {
+    address:              'smtp.mandrillapp.com',
+    port:                 587,
+    domain:               'gmail.com',
+    user_name:            'shiljos@gmail.com',
+    password:             '1sKnfkoiNApaL5o08AHBBQ',
+    authentication:       'plain',
+    enable_starttls_auto: true  }
 end
