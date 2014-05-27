@@ -1,5 +1,5 @@
 Expman::Application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: { registrations: "registrations" }
 
   get 'expenses/statistics'
   get 'expenses/new_income'
